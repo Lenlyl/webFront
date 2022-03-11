@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="index.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="todoapp">
+    <div class="title">
+      <h1>todo</h1>
+    </div>
+    <div class="content">
+      <div id="create-todo"><input id="new-todo" placeholder="What needs to be done?" autocomplete="off" type="text">
+      </div>
+      <ul id="todo-list">
+        <li class="editing">
+          <div class="todo done">
+            <div class="display"><input class="check" type="checkbox">
+              <div class="todo-content">今晚上王者</div><span class="todo-destroy"></span>
+            </div>
+            <div class="edit"><input class="todo-input" type="text" value="今晚上王者"></div>
+          </div>
+        </li>
+        <li class="">
+          <div class="todo ">
+            <div class="display"><input class="check" type="checkbox">
+              <div class="todo-content">给学员留一个大惊喜</div><span class="todo-destroy"></span>
+            </div>
+            <div class="edit"><input class="todo-input" type="text" value="给学员留一个大惊喜"></div>
+          </div>
+        </li>
+        <li class="">
+          <div class="todo ">
+            <div class="display"><input class="check" type="checkbox">
+              <div class="todo-content">给学员留一个大惊吓</div><span class="todo-destroy"></span>
+            </div>
+            <div class="edit"><input class="todo-input" type="text" value="给学员留一个大惊吓"></div>
+          </div>
+        </li>
+      </ul>
+      <div id="todo-stats"><span class="todo-count"><span class="number">2</span><span
+            class="word">项待完成</span></span><span class="todo-clear"><a>Clear <span>1</span> 已完成事项</a></span></div>
+    </div>
+  </div>
+</body>
+
+</html>

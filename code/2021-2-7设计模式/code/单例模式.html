@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<button class="btn1">显示</button>
+<button class="btn2">隐藏</button>
+</body>
+<script>
+
+    // 单例
+    // class Person{
+    //     static instance;
+    //     constructor(myname){
+    //         if(!Person.instance){
+    //             Person.instance = this;
+    //         }
+    //         this.myname = myname;
+    //         return Person.instance;
+    //     }
+    // }
+
+    // let zhangsan  = new Person("张三");
+
+    // let lisi  = new Person("李四");
+    // console.log(zhangsan,lisi)
+
+    // class Person {
+    //     constructor(myname) {
+    //         this.myname = myname;
+    //     }
+    // }
+
+    // class Animal {
+    //     constructor(myname) {
+    //         this.myname = myname;
+    //     }
+    // }
+
+    // // 通用单例
+    // // 闭包把实例化状态缓存起来了
+    // // 高阶函数：以函数作为输入或者是输出的函数；
+    function createInstance(fn){
+        let instance;
+        return function(...args){
+            if(!instance){
+                instance = new fn(...args); 
+            }
+            return instance;
+        }
+    }
+    // let SPerson = createInstance(Person);
+    // let SAnimal = createInstance(Animal);
+    // let zhangsan = new SPerson("张三");
+    // let lisi  = new SPerson("李四");
+    // console.log(zhangsan,lisi);
+    // let dahuang = new SAnimal("大黄");
+    // let xiaoqiang  = new SAnimal("小强");
+    // console.log(dahuang,xiaoqiang);
+    // // $  axios  store
+
+    class Dialog{
+        constructor(){
+            this.dialog = document.createElement("div");
+            this.dialog.style.display = "none";
+            this.isShow = false;
+        }
+        showDialog(){
+            if(!this.isShow){
+                this.dialog.innerHTML = "对话框";
+                this.dialog.style.display = "block";
+                document.body.appendChild(this.dialog);
+                this.isShow = true;
+            }else{
+                alert("显示过了");
+            }
+        }
+        hideDialog(){
+            this.dialog.style.display = "none";
+            this.isShow = false;
+        }
+    }
+
+    let SDialog = createInstance(Dialog);
+
+    let dialog1  = new SDialog();
+    let dialog2  = new SDialog();
+    document.querySelector(".btn1").onclick = function(){
+        dialog1.showDialog();
+    }
+    document.querySelector(".btn2").onclick = function(){
+        dialog2.hideDialog();
+    }
+    
+    // let obj = {
+    //     myname:"张三"
+    // }
+
+
+</script>
+
+</html>

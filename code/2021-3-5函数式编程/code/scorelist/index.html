@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>员工列表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body a {
+            text-decoration: none;
+            color: #0d3a4b;
+        }
+
+        .active {
+            color: #ffffff;
+        }
+
+        .wrap {
+            width: 700px;
+            height: 500px;
+            background-image: url(./images/bg.png);
+            background-repeat: no-repeat;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .wrap #table {
+            width: 460px;
+            border-radius: 12px;
+            position: absolute;
+            left: 50%;
+            top: 150px;
+            transform: translateX(-50%);
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .wrap #table thead {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            color: #fff;
+            background: #4cbfe5;
+        }
+
+        .wrap #table thead a {
+            color: #fff;
+        }
+
+        .wrap #table tbody {
+            color: #19c2ff;
+        }
+
+        .wrap #table tbody a {
+            color: #19c2ff;
+        }
+
+        .wrap #table tbody tr {
+            background: #fff;
+        }
+
+        .ctrl {
+            position: absolute;
+            left: 125px;
+            top: 100px;
+        }
+
+        .ctrl div {
+            width: 450px;
+            line-height: 30px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+    </style>
+    <script src="./node_modules/ramda/dist/ramda.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="ctrl">
+            <div class="age_sort nu">
+                性别：
+                <select>
+                    <option value="0">默认</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+                是否及格：
+                <select>
+                    <option value="0">默认</option>
+                    <option value="true">及格</option>
+                    <option value="false">不及格</option>
+                </select>
+                年龄：
+                <select>
+                    <option value="0">默认</option>
+                    <option value="true">有小到大</option>
+                    <option value="false">由大到小</option>
+                </select>
+                <button>查询</button>
+            </div>
+        </div>
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>性别</th>
+                    <th>分数</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 要清空原始的dom -->
+                <tr>
+                    <th>0</th>
+                    <th>小明</th>
+                    <th>24</th>
+                    <th>男</th>
+                    <th>90</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        let users = [{ "id": 1, "name": "小明", "age": 24, "gender": "男", "score": 56 }, { "id": 2, "name": "小芳", "age": 30, "gender": "女", "score": 84 }, { "id": 3, "name": "小美", "age": 31, "gender": "女", "score": 76 }, { "id": 4, "name": "小刚", "age": 21, "gender": "男", "score": 73 }, { "id": 5, "name": "小琪", "age": 18, "gender": "女", "score": 58 }];
+
+        function renderData(data) {
+            document.querySelector("tbody").innerHTML = "";
+            data.forEach(item => {
+                let tr = document.createElement("tr");
+                tr.innerHTML = ` <th>${item.id}</th>
+                    <th>${item.name}</th>
+                    <th>${item.id}</th>
+                    <th>${item.gender}</th>
+                    <th>${item.score}</th>`;
+                document.querySelector("tbody").appendChild(tr);
+            })
+        }
+        renderData(users);
+
+        // 过滤性别；
+        const filterGender =R.curry( function (gender, data) {
+            // console.log(data);
+            return data.filter(item => item.gender === gender);
+        })
+        //    console.log( filterGender("男",users));
+        // 是否及格
+        const isPass =R.curry( function (type, data) {
+            return data.filter(item => type ? item.score >= 60 : item.score < 60);
+        })
+        // console.log( isPass(false,users));
+
+        // 年龄排序
+        const ageSort =R.curry(function (type, data) {
+            return data.sort((r1, r2) => type ? r1.age - r2.age : r2.age - r1.age)
+        })
+
+        String.prototype.bool = function () {
+            return /^true/.test(this);
+        }
+        //    console.log( "1".bool());
+
+        //    console.log( ageSort(false,users)  );      
+        document.querySelector("button").onclick = function () {
+            let selects = document.querySelectorAll("select");
+            // console.log(selects)
+            let fnArr = [];
+            selects.forEach((item, key) => {
+                // console.log(key);
+                // console.log(item)
+                if (key === 0) {
+                    // console.log(item.value)
+                    // 立刻得到结果？？--->延迟执行
+                    if (item.value !== "0") {
+                        fnArr.push(filterGender(item.value));
+                    }
+
+                } else if (key === 1) {
+                    // console.log(item.value)
+                    if (item.value !== "0") {
+                        fnArr.push(isPass(item.value.bool()));
+                    }
+                } else if (key === 2) {
+                    // console.log(item.value)
+                    if (item.value !== "0") {
+                        fnArr.push(ageSort(item.value.bool()));
+                    }
+                }
+            })
+            // console.log(fnArr);
+            if(fnArr.length>0){
+                let filterFn = R.pipe(...fnArr);
+                let res = filterFn(users);
+                console.log(res);
+                renderData(res);
+            }
+        }
+
+        // 作业：利用高阶函数实现一个MyEvery方法 ？
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css" />
+</head>
+
+<body>
+    <section id="wrap">
+        <h2 class="title">百度音乐榜单</h2>
+        <ul id="list">
+            <li>
+                <input type="checkbox" class="check" />
+                <span>第一条信息</span>
+                <a href="javascript:;" class="collect">收藏</a>
+                <a href="javascript:;" class="cancelCollect">取消收藏</a>
+                <a href="javascript:;" class="remove">删除</a>
+            </li>
+        </ul>
+        <footer class="footer">
+            <label><input type="checkbox" id="checkAll" />全选/全不选</label>
+            <a href="javascript:;" id="remove">删除</a>
+            <input type="text" id="newInfo" />
+            <a href="javascript:;" id="add">添加</a>
+        </footer>
+    </section>
+    <script>
+        // json xml
+        let data = [{
+            id: 1,
+            title: "残酷月光 - 费启鸣",
+            checked: false,
+            collect: true
+        }, {
+            id: 2,
+            title: "兄弟 - 艾热",
+            checked: true,
+            collect: false
+        }, {
+            id: 3,
+            title: "毕生 - 夏增祥",
+            checked: true,
+            collect: true
+        }, {
+            id: 4,
+            title: "公子向北去 - 李春花",
+            checked: false,
+            collect: false
+        }, {
+            id: 5,
+            title: "战场 - 沙漠五子",
+            checked: true,
+            collect: false //是否收藏 true 收藏 false 没有收藏
+        }];
+
+        var inputValue = '';
+
+
+        // 数据优先  视图渲染；
+        // 三目运算符
+        function renderDom(data) {
+
+            let container = document.querySelector("#list");
+            container.innerHTML = "";
+            // 根据数据生成dom
+            data.forEach((item) => {
+                let li = document.createElement("li");
+                li.innerHTML = `<input type="checkbox" class="check" ${item.checked ? 'checked' : ''} />
+        <span>${item.title}</span>
+        ${item.collect ? '<a href="javascript:;" class="cancelCollect">取消收藏</a>' : '<a href="javascript:;" class="collect">收藏</a>'}
+        <a href="javascript:;" class="remove">删除</a>`;
+                container.appendChild(li);
+            })
+
+            //判断列表数据是否已全选
+            let isCheckAll = true;
+            data.forEach((item) => {
+                if (!item.checked) isCheckAll = false;
+            })
+           
+			let footer = document.querySelector(".footer");
+            footer.innerHTML = "";
+            // 根据数据生成dom
+			footer.innerHTML = `
+				<label><input type="checkbox" id="checkAll" ${isCheckAll ? 'checked' : ''} />全选/全不选</label>
+            	<a href="javascript:;" id="remove">删除</a>
+            	<input type="text" id="newInfo" value="${inputValue}" />
+            	<a href="javascript:;" id="add">添加</a>`
+            
+
+            addEvent();
+        }
+		
+        renderDom(data);
+
+
+        function addEvent() {
+
+            let lis = document.querySelectorAll("#list li");
+            lis.forEach((li, key) => {
+                li.addEventListener("click", e => {
+                    // console.log(e.target.className);
+                    // 处理数据
+                    switch (e.target.className) {
+                        case 'check':
+                            // console.log("check",e.target.checked);
+                            data[key].checked = e.target.checked;
+                            break;
+                        case 'cancelCollect':
+//                            console.log("cancelCollect");
+                            data[key].collect = false;
+                            break;
+                        case 'collect':
+                            data[key].collect = true;
+                            break;
+                        case 'remove':
+                            data.splice(key, 1);
+                            break;
+                        default:
+                            break;
+                    }
+                    console.log('#list');
+                    renderDom(data);
+                })
+            })
+
+
+            //全选
+            let checkAll = document.getElementById("checkAll");
+            checkAll.addEventListener("click", e => {
+                data.map(item => {
+                    item.checked = e.target.checked
+                })
+                renderDom(data);
+            })
+
+            //批量删除
+            let removeSelect = document.getElementById("remove");
+            removeSelect.addEventListener("click", e => {
+                console.log("remove all checked item");
+                let newData = [...data];
+                data.forEach(item => {
+                    if (item.checked) {
+                        let index = newData.indexOf(item)
+                        newData.splice(index, 1)
+                    }
+                })
+                data = newData;
+                renderDom(data);
+            })
+
+            //   监听输入框值改变
+            let input = document.getElementById("newInfo")
+            input.addEventListener("change", e => {
+                inputValue = e.target.value;
+            })
+            //添加
+            let add = document.getElementById("add")
+            add.addEventListener("click", e => {
+                if (inputValue === '') {
+					alert('请输入歌曲名称')
+                    return;
+                }
+                data.push({
+                    // id: 3,
+                    title: inputValue,
+                    checked: false,
+                    collect: false
+                })
+                //清空输入框内容
+                inputValue = '';
+                renderDom(data);
+            })
+
+        }
+
+        //  三目运算符  数据驱动  事件委托 
+        // 作业：在老师的代码基础上实现1.全选/全不选 2.添加音乐功能 3 删除指定音乐；
+    </script>
+</body>
+
+</html>

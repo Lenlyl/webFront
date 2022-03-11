@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div id="root"></div>
+<script>
+let root = document.querySelector("#root");
+let state = null;   
+function useState(init){
+    if(!state){
+        state = init;
+    }
+    return [
+        state,
+        (newState)=>{
+            state = newState;
+            render();
+        }
+    ];
+}    
+render();
+function render(){
+    const [nub,setNub] = useState(1);
+    let p = document.createElement("p");
+    p.innerHTML = nub;
+    let btn = document.createElement("button");
+    btn.innerHTML = "nub";
+    btn.onclick = function(){
+        setNub(nub + 1);
+    };
+    root.innerHTML = "";
+    root.appendChild(p);
+    root.appendChild(btn);
+}    
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="js/react.js"></script>
+  <script src="js/react-dom.js"></script>
+</head>
+<body>
+<div id="root"></div>  
+<script>
+/*
+  React.createElement(type,props,...children);
+
+  React 构建的是虚拟DOM
+
+  ReactDOM:
+    ReactDOM.render(
+      ReactNode,
+      container
+    );
+*/  
+let h1 = React.createElement("h1",{id:"title"},"hello react");
+//console.log(h1);
+//console.log(React,ReactDOM);
+ReactDOM.render(
+  h1,
+  document.querySelector("#root")
+);
+</script>  
+</body>
+</html>

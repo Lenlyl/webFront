@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+// 抽象创建过程 对象创建和实现分离。
+
+
+// function Factory(){
+//     let obj = {};
+//     obj.name = "张三";
+//     obj.fn  = function(){
+//         console.log("fn");
+//     }
+//     return obj;
+// }
+
+class Luban{
+    constructor(){
+        this.name = "鲁班";
+    }
+}
+class Yase{
+    constructor(){
+        this.name = "亚瑟";
+    }
+}
+
+function Factory(heroName){
+    switch(heroName){
+        case 'yase':
+            return new Yase();
+            break;
+        case 'luban':
+            return new Luban();
+            break;
+        default:
+            break;
+    }
+}
+let yase =  Factory("yase");
+console.log(yase);
+let luban = Factory("luban");
+console.log(luban);
+
+// 链式操作 return this  return new Object();
+
+// class JQ{
+// }
+
+// function $(args){
+//     return new JQ(args);
+// }
+// $();
+
+
+
+
+
+
+</script>
+</html>

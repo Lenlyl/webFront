@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+</head>
+<body>
+    <!-- <div id="app"></div> -->
+</body>
+<script>
+//   let vm =  new Vue({
+//         el:"#app",
+//         data:{
+//             message:"数据"
+//         },
+//         created(){
+//             console.log(this._data.message);
+//         }
+//     })
+//     console.log(vm);
+// let zhangsan = {
+//     sellHouse(num){
+//         console.log("卖了"+num+"万元");
+//     }
+// }
+// // zhangsan.sellHouse(100);
+// let proxySeller = {
+//     sellHouse(num,hasSold){
+//         if(hasSold){
+//             zhangsan.sellHouse(num-2);
+//         }else{
+//             zhangsan.sellHouse(num);
+//         }
+//     }
+// }
+// proxySeller.sellHouse(100,true);
+
+// Proxy
+// let obj = {
+//     myname:"张三"
+// }
+
+// let proxyObj = new Proxy(obj,{
+//     get(traget,key){
+//         console.log("get");
+//         return traget[key];
+//     },
+//     set(traget,key,newValue){
+//         console.log("set",newValue);
+//     }
+// })
+// proxyObj.myname = "111";
+
+
+class CreateImage{
+    constructor(){
+        this.img = document.createElement("img");
+        document.body.appendChild(this.img);
+    }
+    setSrc(src){
+        this.img.src = src;
+    }
+}
+let src = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fa0.att.hudong.com%2F30%2F29%2F01300000201438121627296084016.jpg&refer=http%3A%2F%2Fa0.att.hudong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1615468060&t=18836efe87029418d6883b3998a2b361";
+// let myImg = new CreateImage();
+// myImg.setSrc(src);
+function ProxyCreateImg(src){
+    let myImg = new CreateImage();
+    let loadImg = new Image();
+    myImg.setSrc("./loading.jpg");
+    loadImg.src = "./loading.jpg";
+    loadImg.onload = function(){
+        myImg.setSrc(src);
+    }
+}
+ProxyCreateImg(src);
+
+
+
+
+
+
+</script>
+</html>

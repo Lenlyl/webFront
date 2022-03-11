@@ -1,0 +1,40 @@
+/*
+:global 公共样式，全局都可以使用，在编译时，不改变原有名称
+:local 模块私有样式，在编译时，会对类名或id名称，重新编译
+
+默认不声明全局还是私有时，代表是私有样式
+*/
+#title {
+    font: italic 14px/1.8 "宋体";
+    text-decoration: underline;
+    margin: 0;
+    color: red
+}
+.box {
+    width: 200px;
+    height: 200px;
+    background: #ccc;
+    border: 2px solid #000;
+}
+.text {
+    font: 12px/22px "宋体";
+    color: red;
+}
+/*
+:local(.text2){
+
+}
+*/
+:global(.text2){
+    color: blue;
+}
+/*
+composes 混入其他类，只能用在私有样式中
+*/
+.text3 {
+    composes: text;
+    border-left: 5px solid #000;
+    padding-left: 5px;
+}
+
+

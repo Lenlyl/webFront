@@ -1,0 +1,62 @@
+
+.content1{
+    height: 100%;
+    width: 100%;
+    background: url(/images/img.jpg) no-repeat;
+    background-size: 100%;
+    position: absolute;
+}
+
+.content_logo{
+    margin: 38% 20% 10% 10%;
+    color:white;
+}
+
+.content_logo_1{
+    float: left;
+}
+
+.content_logo_2{
+    margin-left: 20%;
+    float: left;
+}
+
+.logo1{
+    height: 10%;
+    width: 10%;
+    background: url(/images/telegram2.png) no-repeat;
+    background-size:100%;
+    position: absolute;
+}
+
+.logo2{
+    height: 10%;
+    width: 10%;
+    background: url(/images/twitter2.png) no-repeat;
+    background-size:100%;
+    position: absolute;
+}
+.text_bottom{
+    font-size: 12px;
+}
+
+.left_box{
+    float: left;
+    width: 50%;
+    color:red;
+
+}
+
+.right_box{
+    float: left;
+    width: 50%;
+    color:white;
+    margin-top:50px
+
+}
+
+.text_a{
+    float: left;
+    color:white;
+
+}

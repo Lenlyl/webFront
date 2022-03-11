@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    // let obj = Object.create({
+    //     name: 'haha',
+    //     age: 20,
+    //     hobby () {
+    //         console.log('喜欢足球');
+    //     }
+    // })
+    // console.log(obj);
+    // console.log(obj.hobby());
+    /**
+     * [[Prototype]]: Object
+age: 20
+hobby: ƒ hobby()
+name: "haha" ……
+     */
+
+    function Person(name,age,hobby) {
+        // let obj = {};
+        this.name = name;
+        this.age = age;
+        this.hobby = function() {
+            console.log(hobby);
+        }
+        // return obj;
+    }
+    // let zhangsan = Person('张三', 20, '喜欢篮球');
+    let zhangsan = new Person('张三', 20, '喜欢篮球');
+    // zhangsan.hobby();
+    console.log(zhangsan);
+</script>
+<body>
+    
+</body>
+</html>

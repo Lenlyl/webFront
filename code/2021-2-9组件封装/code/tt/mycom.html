@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <img src="./loading.jpg" is="my-img"  /> -->
+    <my-com>
+        <div slot="s1">插槽内容11</div>
+        <div slot="s2">插槽内容22</div>
+    </my-com>
+</body>
+<script>
+    // class MyImg extends HTMLImageElement{
+    //     constructor(){
+    //         super();
+    //         // console.log(this);
+    //         setTimeout(()=>{
+    //             this.src = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fa3.att.hudong.com%2F35%2F34%2F19300001295750130986345801104.jpg&refer=http%3A%2F%2Fa3.att.hudong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1615448201&t=f1906d1390f32b02a073fea76cc683aa"
+    //         },1000)
+    //     }
+    // }
+    // customElements.define("my-img",MyImg,{
+    //     extends:"img"
+    // })
+    let template = document.createElement("template");
+     template.innerHTML = `
+        <div class="box">
+            123
+           <slot name="s2"></slot> 
+        </div>
+        <style>
+            .box{
+                width:100px;
+                height:100px;
+                background:red;
+            }  
+        </style>
+    `;
+    class MyCom extends HTMLElement{
+        constructor(){
+            super();
+            console.log(template);
+            this.sd = this.attachShadow({mode:"open"});
+            this.sd.appendChild(template.content.cloneNode(true));
+        }
+    }
+
+    customElements.define("my-com",MyCom);
+
+
+</script>
+</html>

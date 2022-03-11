@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      // props
+      /**
+       * sync
+       * 事件名称 = update: + 属性名称
+      */
+      // 可以支持多个
+      // v-model 和 sync 干的事 差不多
+      // vue3 v-model 它可以支持多个了
+      const BarPanel = {
+
+        props: ["visible", 'title'],
+
+        methods: {
+          close() {
+            this.$emit("update:visible", false);
+          },
+        },
+
+        template: `<div v-show="visible">Bar title: {{title}}
+            <button @click="close">x</button>
+          </div>`,
+
+        mounted() {
+          // console.log(title);
+        }
+      };
+
+      const Foo = {
+        components: {
+          BarPanel,
+        },
+        data() {
+          return {
+            showBar: false,
+            barTitle: 'Bar Title'
+          };
+        },
+        methods: {
+          handleShowBar() {
+            this.showBar = true;
+          },
+          handleClose() {
+            this.showBar = false;
+          },
+        },
+        template: `<div>Foo
+          <button @click="handleShowBar">show bar</button>
+            <BarPanel :visible.sync="showBar" :title.sync="barTitle"></BarPanel>
+          </div>`,
+      };
+
+      const app = new Vue({
+        el: "#app",
+        components: {
+          Foo,
+        },
+        template: `
+            <div>
+              app
+              <Foo>
+                12312321321
+                </Foo>
+              </div>
+        `,
+        data: {},
+      });
+    </script>
+  </body>
+</html>

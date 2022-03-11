@@ -1,0 +1,35 @@
+<header class="app-header">
+    <div class="container clearfix">
+        <div class="header-logo">
+            <a href="index.html" title="" class="logo ir">小米官网</a>
+        </div>
+        <div class="header-nav fl">
+            <ul class="nav-list clearfix">
+                {% for category in categories%}
+                <li class="header-item">
+                    <a href="" class="link">
+                        <span class="text">{{category.name}}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <ul class="header-user fr">
+            <li class="header-item">
+                <a href="" class="link">
+                    <span class="text">注册</span>
+                </a>
+            </li>
+            <li class="header-item">
+                <a href="" class="link">
+                    <span class="text">登录</span>
+                </a>
+            </li>
+            <li class="header-item">
+                <a href="" class="link">
+                    <span class="text">zMouse</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</header>

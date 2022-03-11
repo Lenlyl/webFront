@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left:0px
+        }
+
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+<script>
+    let eventObj = new EventTarget();
+    eventObj.num = 1;
+    function move(ele,target,dis){
+        let left =parseInt(getComputedStyle(ele,null)[dis]);
+        // console.log(left)
+        let speed =(target-left>=0?1:-1)*3;
+        setTimeout(() => {
+            left += speed ;
+            ele.style[dis] = left + "px";
+            if(Math.abs(left-target)<5){
+                // cb && cb();
+                eventObj.dispatchEvent(new CustomEvent("myevent"+ eventObj.num));
+                eventObj.num++;
+            }else{
+                move(ele,target,dis);
+            }
+        }, 10);
+    }
+    let ele = document.querySelector(".box");
+    // 右运动300；
+    // move(ele,300,'left');
+    // // 向下运动300
+    // move(ele,300,'top');
+    // move(ele,300,'left',()=>{
+    //     move(ele,300,'top',()=>{
+    //         // console.log("运动完成");
+    //         move(ele,0,'left',()=>{
+    //             move(ele,0,'top',()=>{
+    //                 console.log("运动完成");
+    //             })
+    //         })
+    //     })
+    // })
+    move(ele,300,'left');
+
+    eventObj.addEventListener("myevent1",function(){
+        console.log(1);
+        move(ele,300,'top');
+    })
+    eventObj.addEventListener("myevent2",function(){
+        console.log(2);
+        move(ele,0,'left');
+    })
+    eventObj.addEventListener("myevent3",function(){
+        console.log(3);
+        move(ele,0,'top');
+    })
+    eventObj.addEventListener("myevent4",function(){
+        console.log(4);
+    })
+
+
+    // console.log(111);
+    // console.log(222);
+</script>
+</html>

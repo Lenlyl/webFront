@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+    <style>
+        .box1{
+            background: red;
+        }
+        .box2{
+            background: yellow;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>原本的jq</h1>
+    <!-- <button>点击</button>s -->
+    <div class="box1">
+        111
+    </div>
+    <div class="box2">
+        222
+    </div>
+    <button>点击</button>
+</body>
+<script>
+// document.querySelector("button").onclick = function(){
+//     console.log("点击了！！")
+// }
+
+// $("button").click(()=>{
+//     console.log("点击了！！")
+// })
+
+// $(document.querySelector(".box1")).click(()=>{
+//     console.log("点击了");
+// })
+// 3.多个对象
+// $(document.querySelectorAll("div")).click(()=>{
+//     console.log("点击了");
+// })
+// 4.函数；
+// $(function(){
+//     console.log(111);
+// })
+
+// on方法  :多个元素 多个事件
+// $("div").on("mouseover",()=>{
+//     console.log(123);
+// }).click(()=>{
+//     console.log("click")
+// })
+// 链式；
+// $("div").eq(0).on("click",function(){
+//     console.log("click");
+// })
+//  let ele = $("div").get(0);
+//  console.log(ele);
+// $("div").eq(0).end().on("click",()=>{
+//     console.log("click");
+// })
+// let res = $("div").eq(0).eq(0);
+// console.log(res);
+// 获取样式；1
+// console.log($("div").css("background"));
+// 设置样式2
+// $("div").css("background","blue")
+// 设置样式3
+// $("div").css({background:"blue",height:100})
+
+
+// $.cssHooks.wh = {
+//     get(ele){
+//         console.log(ele);
+//         return getComputedStyle(ele,null)['width'] + "--"+getComputedStyle(ele,null)['height'];
+//     },
+//     set(ele,styleValue){
+//         console.log(ele,styleValue);
+//         ele.style['width'] = styleValue;
+//         ele.style['height'] = styleValue;
+//     }
+// }  
+// console.log( $("div").css("wh") )  //get
+// wh  :既可以改变高度，又可以改变宽度；
+// $("div").css("wh","100px");  //set
+$("button").on("click",()=>{
+    console.log(111);
+    // 基础版
+    $(".box2").animate({width:"200px"},function(){
+        console.log("运动完成");
+    });
+})
+</script>
+</html>

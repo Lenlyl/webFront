@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    //继承
+    function Dad(name, age) {
+      this.name = name;
+      this.age = age;
+      this.money = "100000";
+      this.foo = function () {
+        console.log("Dad foo");
+      };
+    }
+
+    function Son(name, age) {
+      // Dad.call(this, name, age);
+      // Dad.apply(this, [name, age])
+      Dad.bind(this)(name, age);
+      this.sex = "男";
+    }
+
+    let zhangSan = new Son("张三", 20);
+    console.log(zhangSan.money);
+    console.log(zhangSan.sex);
+  </script>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button class="btn">按钮</button>
+</body>
+<script>
+// 一对多的关系
+// 惰性执行
+
+// document.querySelector(".btn").addEventListener("click",function(){
+//     console.log("改变了111");
+// })
+// document.querySelector(".btn").addEventListener("click",function(){
+//     console.log("改变了222");
+// })
+
+// on  emit
+
+class MyEvent{
+    constructor(){
+        // 保存事件
+        this.handles = {};
+        // {click:[],mouseover:[],mousemove:[] }
+    }
+    addEvent(eventName,fn){
+        if(typeof this.handles[eventName]==="undefined"){
+            this.handles[eventName] = [];
+        }
+        this.handles[eventName].push(fn);
+    }
+    // 触发
+    trigger(eventName){
+        this.handles[eventName].forEach(fn=>{
+            fn();
+        })
+    }
+    // 移除指定自定义事件(作业)；
+    removeEvent(eventName,fn){
+        // 需要实现....
+        if(!eventName in this.handles){
+            return ;
+        }
+        for(let i=0;i<this.handles[eventName].length;i++){
+            if(this.handles[eventName][i]===fn){
+                this.handles[eventName].splice(i,1);
+                break;
+            }
+        }
+    }
+}
+
+let myevent = new MyEvent();
+function fn1(){
+    console.log("fn1")
+}
+function fn2(){
+    console.log("fn2");
+}
+
+myevent.addEvent("myEventName",fn1);
+myevent.addEvent("myEventName",fn2);
+// myevent.removeEvent("myEventName",fn2);
+
+setTimeout(() => {
+    myevent.trigger("myEventName");  // fn2
+}, 2000);
+
+// 观察者模式
+// 发布订阅模式
+
+// EventTarget
+// function fn1(){
+//     console.log("fn1")
+// }
+// function fn2(){
+//     console.log("fn2");
+// }
+
+// let evnetTarget = new EventTarget();
+// evnetTarget.addEventListener("myevent",fn1);
+// evnetTarget.addEventListener("myevent",fn2);
+// setTimeout(() => {
+//     evnetTarget.dispatchEvent(new CustomEvent("myevent"))
+// }, 1000);
+
+// 作业：1.removeEvent 实现  2. 在指定位置绑定及触发自定义事件。
+
+
+
+</script>
+</html>

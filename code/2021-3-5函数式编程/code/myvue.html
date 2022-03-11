@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./Kvue2.js"></script>
+</head>
+<body>
+    <h1>自己的</h1>
+    <div id="app">
+        <!-- <div>
+            <div>{{message}} </div> 
+        </div> -->
+        <!-- 111{{message}}222 -->
+        <!-- <input v-model="message"  /> {{message}} -->
+        <div v-html="myhtml"></div>
+        <!--xss攻击 ？？  -->
+    </div>
+    
+</body>
+<script>
+let vm  = new Vue({
+    el:"#app",
+    data:{
+        message:"数据",
+        myhtml:"<h1>标题</h1>"
+    }
+})
+
+console.log(vm);
+// 1.初次编译（递归查找、正则）;
+// 2.响应视图更新？（观察数据）
+// 3.观察者模式  
+// 4.发布订阅模式
+// 5.v-model 在案例基础实现
+// 6.作业：在案例基础上 v-html实现 （初次渲染 、响应式）
+
+
+
+</script>
+</html>

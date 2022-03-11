@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>promise</title>
+  </head>
+  <body></body>
+
+  <script type="module">
+    let p = new Promise((resolve, reject) => {
+      resolve("p");
+    });
+    // console.log(p);
+    // let p1 = new Promise((resolve, reject) => {
+    //   resolve("success p1");
+    // });
+    // console.log(p1);
+    // let p2 = new Promise((resolve, reject) => {
+    //   reject("err p2");
+    // });
+    // console.log(p2);
+
+    let p3 = p.then((res) => {
+      console.log("p then: ", res);
+      return 222;
+    });
+    let p4 = p3.then((res) => {
+      console.log("p3 then: ", res);
+      return new Promise((resolve, reject) => {
+        reject("p4 reject");
+      });
+    });
+    console.log('p4', p4);
+    // p1.then(
+    //   (res) => {
+    //     console.log("then", res);
+    //   },
+    //   (err) => {
+    //     console.log("then", err);
+    //   }
+    // );
+    // p2.then(
+    //   (res) => {
+    //     console.log(res);
+    //   },
+    //   (err) => {
+    //     console.log("then", err);
+    //   }
+    // );
+    console.log("p3", p3);
+
+
+    let pf = new Promise((resolve, reject) => {
+        resolve('pf resolve')
+    })
+    pf.then(res => {
+        console.log(res);
+    }).finally(() => {
+        console.log('pf finally');
+    })
+  </script>
+</html>

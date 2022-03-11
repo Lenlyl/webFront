@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+/*函数：复用某些代码片段*/
+/*同一个函数，被调用两次，相当于该代码片段，在js中定义了两次*/   
+function fn(){
+    let nub = 0;
+    return function(){
+        nub++;
+        console.log(nub);
+    }
+}  
+let add = fn();
+
+add();//1
+add();//2
+add();//3
+let add2 = fn();
+add2();//1
+/*
+nub = 0;
+add = function(){
+    nub++;
+    console.log(nub);
+}
+nub++;
+console.log(nub);
+nub++;
+console.log(nub);
+nub++;
+console.log(nub);
+
+//新的空间:
+
+nub = 0;
+add = function(){
+    nub++;
+    console.log(nub);
+}
+nub++;
+console.log(nub);
+*/
+</script>   
+</body>
+</html>

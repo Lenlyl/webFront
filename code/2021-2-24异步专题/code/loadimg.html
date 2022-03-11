@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function loadimg() {
+        return new Promise((res, rej) => {
+            let img = new Image();
+            img.src = "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2853553659,1775735885&fm=26&gp=0.jpg";
+            img.onload = function () {
+                res(img);
+            }
+            img.onerror = function(){
+                rej("失败");
+            }
+        })
+    }
+    loadimg().then(img=>{
+        console.log(img);
+        document.body.appendChild(img);
+    })
+
+
+</script>
+
+</html>

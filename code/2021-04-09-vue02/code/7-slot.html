@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      const Foo = {
+        components: {},
+        data() {
+          return {
+            user: {
+              age: 18,
+              name: "xiaohong",
+            },
+            title:"heihei"
+          };
+        },
+        template: `<div>
+          <slot>default slot</slot>
+          Foo
+          <div id="xiaohong">
+            <slot name="xiaohong" :user="user" :title="title"></slot>
+          </div>
+          <div id="xiaohei">
+            <slot name="xiaohei"></slot>
+            </div>
+          </div>`,
+      };
+
+      const app = new Vue({
+        el: "#app",
+        components: {
+          Foo,
+        },
+        template: `
+            <div>
+              app
+              <Foo>
+                default
+                <template #xiaohong="{user, title}">
+                  {{user.age}} --{{user.name}} -- {{title}}
+                </template>
+                <template #xiaohei>
+                   xiaohei
+                  </template>
+                </Foo>
+              </div>
+        `,
+        data: {},
+      });
+    </script>
+  </body>
+</html>

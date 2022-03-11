@@ -1,0 +1,25 @@
+.wrap {
+    width: 500px;
+    margin: 50px auto;
+}
+.nav a {
+    font: 14px/2 "宋体";
+    color: #000;
+    text-decoration: underline;
+}
+.nav .active {
+    color: red;
+    text-decoration: none;
+}
+.listNav a {
+    font: 14px/2 "宋体";
+    color: blue;
+    text-decoration: underline;
+}
+.listNav .active {
+    color: #000;
+    text-decoration: none;
+}
+.pagination>* {
+    margin: 0 3px;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>自己的promise</h1>
+</body>
+<script type="module">
+    import KPromise from './KPromise.js';
+
+    // setTimeout(()=>{
+    //     console.log("setTimeout")
+    // })
+    // let p = new KPromise((resolve, reject) => {
+    //     // setTimeout(() => {
+    //         resolve("success");
+    //         // reject("err");
+    //     // }, 1000);
+    //     // resolve("success");
+    //     // reject("err");
+    // });
+    // // console.log(p);
+    // p.then(res => {
+    //     // 微任务
+    //     console.log("success1", res);
+    // }, err => {
+    //     console.log("error", err);
+    // })
+
+
+    // 1.多个then的问题（不是链式操作）---->队列保存回调 2.执行顺序问题  先执行调用（resolve、reject）,后注册的回调  3.微任务宏任务; 4.链式操作问题 （返还值问题）;5.周边方法。
+    // 状态 then  ---》
+    // 作业 实现一个 finally方法（异步问题）;
+
+    // p.then(res => {
+    //     console.log("success2", res);
+    // }, err => {
+    //     console.log("error", err);
+    // })
+
+
+    // [task1,task2,task3....]  ---- eventLoop
+    // [task1...] [task3...];
+    // 异步 --->  宏任务（颗粒度比较大） 微任务(颗粒度小，精度高的需求) ：微任务执行在当前宏任务之后 下一个宏任务之前；
+    // [1[],2[],3[],4[]]  宏任务
+    // [1,2,3,4];5
+
+    // let p = new KPromise(resolve=>{
+    //     resolve("success");
+    // })
+    // let p2 =   p.then(res=>{
+    //     return new KPromise(resolve=>{
+    //         resolve("返还的promise");
+    //     })  //111
+    // }) 
+    // console.log(p2);
+    
+    // p2.then(res=>{
+    //     console.log("下一个then",res)
+    // })
+
+
+// 周边方法；
+let p1 = new KPromise(res=>{
+    setTimeout(()=>{
+        res(1111)
+    },2000)
+})
+p1.then(res=>{
+    console.log(res);
+}).finally(()=>{
+    console.log("完成");
+})
+
+
+// let p2 = new KPromise((res,rej)=>{
+//     setTimeout(()=>{
+//         rej(222)
+//     },1000)
+// })
+// KPromise.race([p1,p2]).then(res=>{
+//     console.log("p1,p2先执行结果：",res);
+// })
+
+// all  allsettled
+// KPromise.all([p1,p2]).then(res=>{
+//     console.log("结果：",res);
+// })
+
+// KPromise.allSettled([p1,p2]).then(res=>{
+//     console.log(res);
+// })
+
+ </script>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //1.构造函数首字母大写； 2.this指向实例化对象 3.
+    function Person(name,age,hobby) {
+        // this.num = 0;
+        this.name = name;
+        this.age = age;
+        this.hobby = function() {
+            console.log(hobby);
+        }
+    }
+    //静态属性
+    Person.num = 0;
+    //静态方法
+    Person.fn = function (params) {
+        console.log('我是Person的静态方法 ' + params);
+    }
+    let zs = new Person('张三', 20, '喜欢篮球');
+    Person.num ++
+    let ls = new Person('李四', 20, '喜欢篮球');
+    Person.num ++
+    // zs.num ++;
+    // console.log(zs.num);
+    //静态属性和方法；属于类本身的
+    console.log(Person.num);
+    console.log(Person.fn('fn'));
+
+
+    //性能问题
+    
+</script>
+</html>

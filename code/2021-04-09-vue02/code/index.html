@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      // 注册一个组件
+      // 1. 全局注册
+      // 2. 局部注册
+
+      // 1. template 必须存在一个根节点 -> vue2
+      // 2. data 必须是一个函数
+      const Bar = {
+        template: `<div>
+                Bar
+                </div>`,
+      };
+
+      const Foo = {
+        // el -> ?? 不需要了
+        components: {
+          Bar,
+        },
+        template: `<div>Foo
+            {{count}}
+            <button @click="handleClick">click</button>
+            <Bar></Bar>
+            </div>`,
+        data() {
+          // data 必须是一个函数
+          return {
+            count: 1,
+          };
+        },
+        // data: {
+        //   count: 1,
+        // },
+        methods: {
+          handleClick() {
+            this.count++;
+          },
+        },
+      };
+
+      // data -> {} -> 引用类型
+      // Foo1 -> data
+      // Foo2 -> data
+
+      // 全局注册
+      Vue.component("Foo1", Foo);
+
+      const app = new Vue({
+        el: "#app",
+        template: `
+            <div>
+                app
+                <Foo1></Foo1>
+                <Foo1></Foo1>
+                </div>
+        `,
+        data: {
+          msg: "helloworld",
+        },
+      });
+    </script>
+  </body>
+</html>

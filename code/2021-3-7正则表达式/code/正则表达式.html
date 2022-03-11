@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>正则表达式</title>
+  </head>
+  <body></body>
+  <script>
+    //1.字面量创建
+    // let str = "abc1232dfaf123334fda";
+    // let reg = /\d+/g;
+    // let res = str.match(reg);
+    // console.log(res);
+
+    //2.构造函数创建
+    // let str = "abc1232dfaf123334fda";
+    // let abc = "123"
+    // let reg = new RegExp(abc, 'g');
+    // let res = str.match(reg);
+    // console.log(res);
+
+    //3.正则对象底下的方法
+    // let str = "abc1232dfaf123334fda";
+    // let reg = /\d+/g;
+    // // console.log(reg.test(str));
+    // console.log(reg.lastIndex);
+    // console.log(reg.exec(str)); //匹配第一个，需要继续匹配，再继续写代码
+    // console.log(reg.lastIndex);
+    // console.log(reg.exec(str));
+    // console.log(reg.lastIndex);
+    // console.log(reg.exec(str));
+
+    //4.字符串方法；
+    //1.split 2.search；3.match；4.replace
+    // let str = "abc1232dfaf123334fda";
+    // // let arr = str.split(1);
+    // let arr = str.split(/\d+/)
+    // console.log(arr);
+
+    // let str = "abcdefghijke";
+    // let reg = /z/;
+    // console.log(str.search(reg));//找到第一个下标，没有返回-1
+
+    // let str = "abcdefghij2222k";
+    // let reg = /\d+/;
+    // console.log(str.match(reg));//匹配单个，有下标，匹配全部[g]，只有内容，无下标
+
+    // let str = "abc123abc123";
+    // let reg = /\d/g;
+    // // console.log(str.replace(reg, '*'));
+    // let res = str.replace(reg, function(arg) {
+    //     console.log(arg);//可拿到匹配的内容值
+    //     return '*';
+    // })
+    // console.log(res);
+
+    //元字符
+    /*
+    1.字符相关；
+    2、数量有关
+    3、位置相关
+    4、括号相关
+    */
+    //1.字符相关；
+    // \w \W \d \D \s \S
+    //\w: 包含 数字、字母、下划线即true，非等于
+    //    let str = "+d2_ &*?";
+    //    let reg = /\w/g;
+    //    console.log(reg.test(str));
+
+    //\W: 非 数字、字母、下划线， 包含其它字符即true
+    // let str = "d2_";
+    // let reg = /\W/g;
+    // console.log(reg.test(str));
+
+    //\d: 包含数字即true
+    // let str = "d23_";
+    // let reg = /\d+/g;
+    // console.log(reg.test(str));
+
+    //\D: 非数字，纯数字即false
+    // let str = "23";
+    // let reg = /\D/g;
+    // console.log(reg.test(str));
+
+    //\s: 匹配空格， 含空格即true
+    // let str = "23 abc";
+    // let reg = /\s/g;
+    // console.log(reg.test(str));
+
+    //\S: 非空格， 等于空格或空字符即false 含其它为true
+    // let str = "1 23";
+    // let reg = /\S+/g;
+    // console.log(str, '\t', reg.test(str));
+
+    // . 非 \n \r \u2028(行结束符) \u2029(段落结束符);
+    // let str = "abc";
+    // let reg = /./;
+    // console.log(str, '\t', reg.test(str));
+
+    // {} ? + *
+    // let str = "abcdeeeeeeeef13";
+    // let reg = /abcde{4}f/g; //匹配长度4
+    // let reg = /abcde{1,4}f/g; //匹配长度1到4
+    // let reg = /abcde{1,}f/g; //匹配长度1到无穷大
+    // console.log(str, '\t', reg.test(str));
+
+    // ?  === {0,1}
+    //+ === {1,}
+    // * === {0,}
+    // let str = "my name is Lorrin";
+    // let reg = /my\s?name/g;
+    // console.log(str, '\t', reg.test(str));
+
+    // ? 另一个用处，贪婪匹配 ==> 惰性匹配
+    // let str = "12345678";
+    // let reg = /\d{2,4}/g;//贪婪匹配，按最大的匹配
+    // let reg2 = /\d{2,4}?/g;//后面加?号，惰性匹配
+    // console.log(str, '\t', str.match(reg), '\n', str.match(reg2));
+
+    //位置相关 ^ $ \b \B
+    // ^ 开始的位置
+    // $ 结尾的位置
+    // let str = '123abcdef';
+    // let reg = /^\w{3}/g;
+    // console.log(str.replace(reg, '*')); //*abcdef
+    // let reg2 = /\w{3}$/g;
+    // console.log(str.replace(reg2, '$')); //123abc$
+
+    // \b \B 边界符
+    //边界：非\w 的 都是边界
+    // let str = "this is a book";
+    // let reg = /\bis\b/g;
+    // console.log(str.match(reg));
+    // let str = "this is a book";
+    // let reg = /\Bis\b/g;
+    // console.log(str.match(reg));
+
+    //括号使用 () []
+    //():分组；
+    // let str = 'abababafsdab';
+    // let reg = /(ab){3}/g;
+    // console.log(reg.test(str));
+    //():提取值
+    // let str = 'abc 2022-02-24 abc';
+    // let reg = /(\d{4})-(\d{2})-(\d{2})/;
+    // console.log(str.match(reg));
+    // console.log(RegExp.$1);
+    // console.log(RegExp.$2);
+    // console.log(RegExp.$3);
+
+    //替换
+    // let str = '2022-02-24';
+    // let reg = /(\d{4})-(\d{2})-(\d{2})/;
+    // console.log(str.match(reg));
+    // let res = str.replace(reg, "$2/$3/$1");
+    // let res = str.replace(reg, function(arg, year, month, day) {
+    //     console.log(arg);
+    //     return month + '/' + day + '/' + year;
+    // })
+    // console.log(res);
+
+    //反向引用
+    // let className = 'news-container_nav';
+    // let reg = /\w{4}(-|_)\w{9}(\1)\w{3}/; // \1 为反向引用，第一次匹配位置的字符
+    // console.log(reg.test(className));
+
+    //[] : 字符集合
+    // let str = "my name is LiYan";
+    // let reg = /Li[Yy]an/g; //匹配括号内的字符
+    // let str = '123456789abc'
+    // let reg = /[0-9]|[a-z]/g; //匹配某一段ASCLL之间的值，包含就是true
+    // console.log(reg.test(str));
+
+    // let str = "my name is LiYan";
+    // let reg = /[^0-9]/g; //非0-9的数字，可能包含数字但不全是数字
+    // console.log(reg.test(str));
+
+    //判断是金额且最多两位小数点
+    // let str = '12.233';
+    // let reg = /^\d+\.?\d{0,2}$/;
+    // console.log(reg.test(str));
+
+    //匹配模式
+    // g i m s u y
+    //g: 全局匹配
+    //i: 忽略大小写
+    // let str = 'aBc123abC';
+    // let reg= /abc/i;
+    // console.log(reg.test(str));
+
+    //m: 多行模式
+    // let str = `This is an\n antzone good`;
+    // let reg = /^\w/gm; //每行的首字符匹配
+    // console.log(str.replace(reg, "*"));
+
+    //s : 让"."能匹配换行
+    // let str = `abcd
+    // efg`;
+    // let reg = /^a.*g$/gs;
+    // console.log(reg.test(str));
+
+    //u: 匹配unicode编码
+    // let str = 'a';
+    // let reg = /\u{61}/gu;
+    // console.log(reg.test(str));
+
+    //y: 粘性模式
+    // let str = '12de2432sf234sfs23dsd1';
+    // let reg = /\d/gy; //加y匹配连续的，到d字符就停止匹配了
+    // console.log(reg.exec(str)); //index: 0
+    // console.log(reg.exec(str)); //index: 1
+    // console.log(reg.exec(str)); //null
+
+    //命名分组 (?<名称>)
+    // let str = "2022-02-24";
+    // let reg = /\d{4}-\d{2}-\d{2}/;
+    // console.log(str.match(reg)); //groups: undefined 自定义名称
+    /*
+    [
+      0: "2022-02-24"
+      groups: undefined
+      index: 0
+      input: "2022-02-24"
+      length: 1
+    ]
+    */
+    // let reg2 = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+    // console.log(str.match(reg2).groups);
+    /*
+    [
+      0: "2022-02-24"
+      1: "2022"
+      2: "02"
+      3: "24"
+      groups: {year: '2022', month: '02', day: '24'}
+      index: 0
+      input: "2022-02-24"
+      length: 4
+    ]
+    */
+
+    //零宽断言
+    //正向肯定零宽断言
+    // let str = 'iphone3iphone4iphone5iphone6iphonePlus';
+    // let reg = /iphone(?=\d)/g; //肯定 log:苹果3苹果4苹果5苹果6iphonePlus
+    // let reg = /iphone(?!\d)/g; //否定 log:iphone3iphone4iphone5iphone6苹果Plus
+    // let res = str.replace(reg, '苹果');
+    // console.log(res);
+
+
+    //负肯定零宽断言
+    let str = '10px20px30pxipx';
+    let reg = /(?<=\d+)px/g; //肯定 log:10像素20像素30像素ipx
+    // let reg = /(?<!\d+)px/g; //否定 log:10px20px30pxi像素
+    let res = str.replace(reg, '像素');
+    console.log(res);
+  </script>
+</html>

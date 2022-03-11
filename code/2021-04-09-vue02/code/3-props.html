@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      // component -> function
+      /// component -> input
+      // output
+
+      // function Bar (a=1,b) {
+      // }
+
+      // function Foo () {
+      // }
+
+      // props
+      // type
+
+      const Bar = {
+        // 声明
+        // props: ["title","count"],
+        props: {
+          count: {
+            type: Number,
+            // 10
+            validator(val) {
+              // 10
+              // 自定义校验规则
+              return val === 10;
+            },
+          },
+          title: {
+            type: String,
+            default: "heihei",
+          },
+        },
+        template: `<div>Bar title: {{title}}
+          <p>count:{{count}}</p>
+          <button @click="handleClick">click</button>
+          </div>`,
+        methods: {
+          handleClick() {
+            // props 不可以更改
+            this.count = 20;
+          },
+        },
+      };
+
+      const Foo = {
+        components: {
+          Bar,
+        },
+        template: `<div>Foo
+          <Bar title="the title from foo component" :count="10"></Bar>
+          {{count}}
+          <button @click="count++">click</button>
+          </div>`,
+        data() {
+          return {
+            count: 1,
+          };
+        },
+      };
+
+      const app = new Vue({
+        el: "#app",
+        components: {
+          Foo,
+        },
+
+        template: `
+            <div>
+              app
+              <Foo v-if="isShowFoo"></Foo>
+              </div>
+        `,
+        data: {
+          isShowFoo: true,
+        },
+        methods: {},
+      });
+    </script>
+  </body>
+</html>

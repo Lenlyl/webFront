@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>原本promise</h1>
+</body>
+<script>
+    // 【script[2],3】
+    // promsie.then  微任务 
+    // 1--4---5 -- (2,3);
+    // console.log(1);
+    // setTimeout(() => {
+    //     console.log(3)
+    // })
+    // 三种状态 $set  _this;
+//     let p = new Promise((resolve, reject) => {
+//         // console.log(4);
+//         resolve("success");  //fulfilled  1.改变promise状态  2. 设置promise值
+//         // reject("err");  //rejected
+//     })
+
+//     let p2 = p.then(res => {
+//         console.log(res);
+//         // return 111;
+//         // return new Promise();
+//        return new Promise(resolve=>{
+//             resolve("返还的promise");
+//         })  
+//     })
+// console.log(p2);
+//     p2.then(res => {
+//         console.log(res);
+//     })
+    // console.log(p);
+    // p.then(res => {
+    //     console.log("2", res)
+    // })
+    // console.log(5);
+
+// p.then(res=>{
+//     console.log("2",res)
+// })
+
+let p1 = new Promise(res=>{
+    setTimeout(()=>{
+        res(1111)
+    },2000)
+})
+let p2 = new Promise((res,rej)=>{
+    setTimeout(()=>{
+        rej(222)
+    },1000)
+})
+let p3 = new Promise((res, rej) => {
+    setTimeout(() => {
+        res(333)
+    }, 500)
+}).finally(function(data){
+    console.log('finally 无论Promise执行结果如何，均会调用', data);
+    return 111
+}).then(function(x){
+    console.log(x);
+})
+// Promise.all([p1,p2]).then(res=>{
+//     console.log(res);
+// })
+Promise.allSettled([p1,p2]).then(res=>{
+    console.log(res);
+})
+
+
+</script>
+
+</html>

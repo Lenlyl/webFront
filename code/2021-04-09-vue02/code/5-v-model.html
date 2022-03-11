@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      // v-model  只能定义一个
+      const BarPanel = {
+        props: ["visible"],
+        // v-model
+        // props -> value
+        // emit -> close
+        // props: ["value"], //v-model默认传值属性名是value
+        model: {
+          prop: "visible", // value
+          event: "close", // input
+        }, //自定义v-model传值属性名，和事件函数名称
+        methods: {
+          close() {
+            this.$emit("close", false);
+            // this.$emit("input", false); //v-model 默认事件名是input
+          },
+        },
+        template: `<div v-show="value">BarPanel
+            <button @click="close">x</button>
+          </div>`,
+      };
+
+      const Foo = {
+        components: {
+          BarPanel,
+        },
+        data() {
+          return {
+            showBar: false,
+          };
+        },
+        methods: {
+          handleShowBar() {
+            this.showBar = true;
+          },
+          handleClose() {
+            this.showBar = false;
+          },
+        },
+        template: `<div>Foo
+          <button @click="handleShowBar">show bar</button>
+            <BarPanel v-model="showBar"></BarPanel>
+          </div>`,
+      };
+
+      const app = new Vue({
+        el: "#app",
+        components: {
+          Foo,
+        },
+        template: `
+            <div>
+              
+              app
+              <Foo></Foo>
+              </div>
+        `,
+        data: {},
+      });
+    </script>
+  </body>
+</html>

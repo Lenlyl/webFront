@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+// let zhangsan = {
+//     name:"张三",
+//     sellHouse(num){
+//         console.log("卖了"+num+"万元");
+//     }
+// }
+
+// // zhangsan.sellHouse(100);
+// function ProxySeller(num,hasSold){
+//     if(hasSold){
+//         console.log("卖了"+(num-10)+"万元")
+//     }else{
+//         console.log("卖了"+num+"万元")
+//     }
+// }
+// ProxySeller(100,true);
+
+// class CreateImg{
+//     constructor(){
+//         this.img = document.createElement("img");
+//         document.body.appendChild(this.img);
+//     }
+//     setSrc(src){
+//         this.img.src = src;
+//     }
+// }
+// // let myImg = new CreateImg();
+// // myImg.setSrc("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fa3.att.hudong.com%2F35%2F34%2F19300001295750130986345801104.jpg&refer=http%3A%2F%2Fa3.att.hudong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1615445034&t=b22c51e18842c853b5829f20158d7364");
+// let src = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fa3.att.hudong.com%2F35%2F34%2F19300001295750130986345801104.jpg&refer=http%3A%2F%2Fa3.att.hudong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1615445034&t=b22c51e18842c853b5829f20158d7364";
+
+// function ProxyCreateImg(src){
+//     let loadImg = new Image();
+//     loadImg.src = "./loading.jpg";
+//     let myImg = new CreateImg();
+//     myImg.setSrc("./loading.jpg");
+//     loadImg.onload = function(){
+//         myImg.setSrc(src);
+//     }
+// }
+// ProxyCreateImg(src);
+
+// let arr = [{
+//     name:"张三",
+//     age:20
+// },{
+//     name:"李四",
+//     age:30
+// }]
+
+// function Adapter(arr){
+//     let newArr = [];
+//     arr.forEach(item=>{
+//         let obj = {
+//             [item['name']]:item['age']
+//         }
+//         newArr.push(obj); 
+//     })
+//     return newArr;
+// }
+// let res = Adapter(arr);
+// console.log(res);
+
+
+class Hero{
+    constructor(name){
+        this.name = name;
+    }
+}
+
+class Skill{
+    walk(){
+        console.log("走");
+    }
+    run(){
+        console.log("跑");
+    }
+    release(){
+        console.log("释放技能");
+    }
+}
+
+function mixin(receiveClass,giveClass){
+    if(typeof arguments[2] !== "undefined"){
+        for(let i=2;i<arguments.length;i++){
+            receiveClass.prototype[arguments[i]] =  giveClass.prototype[arguments[i]];
+        }
+    }
+}
+mixin(Hero,Skill,"release");
+let yase = new Hero("亚瑟");
+console.log(yase);
+yase.release();
+
+
+
+
+
+
+</script>
+</html>

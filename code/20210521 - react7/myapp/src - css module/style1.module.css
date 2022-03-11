@@ -1,0 +1,15 @@
+#title {
+    font: bold 14px/1.8 "宋体";
+    text-decoration: underline;
+    margin: 0;
+}
+.box {
+    width: 200px;
+    height: 200px;
+    background: red;
+    color: #fff;
+}
+.text {
+    font: 12px/22px "宋体";
+    color: #333;
+}

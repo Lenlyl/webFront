@@ -1,0 +1,32 @@
+.page {
+    display: flex;
+    min-height: 100vh;
+}
+.page-main {
+    padding-top: 10px;;
+}
+.page-content {
+    padding-right: 20px;
+}
+.page-sider {
+    width: 200px;
+    background: none;
+}
+.wrap {
+    margin: 0 auto;
+    width: 1200px;
+}
+#logo {
+    display: flex;
+    margin: 0;
+    height: 64px;
+}
+#logo a {
+    margin: auto;
+}
+#logo img {
+   display: block;
+   height: 50px;
+}
+
+

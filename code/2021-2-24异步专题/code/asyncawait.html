@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function fn1() {
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                res(1)
+            }, 2000);
+        })
+    }
+    function fn2() {
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                res("err")
+            }, 1000);
+        })
+    }
+    function fn3() {
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                res(3)
+            }, 3000);
+        })
+    }
+    // fn1().then(res=>{
+    //     console.log(res);
+    //     return fn2();
+    // }).then(res=>{
+    //     console.log(res)
+    //     return fn3();
+    // }).then(res=>{
+    //     console.log(res);
+    // })
+    // async function asyncFn() {
+    //     try {
+    //         let res1 = await fn1();
+    //         console.log(res1);
+    //         let res2 = await fn2();
+    //         console.log(res2);
+    //         let res3 = await fn3();
+    //         console.log(res3);
+    //     } catch  {
+    //         console.log("error");
+    //     }
+
+    // }
+    // asyncFn();
+
+    let arr = [fn1,fn2,fn3];
+    async function foo(){
+        // arr.forEach(async item=>{
+        //   let res =  await item();
+        //   console.log(res);
+        // })
+        for(let i=0;i<arr.length;i++ ){
+            let res =  await arr[i]();
+            console.log(res);
+        }
+    }
+
+    foo();
+
+
+
+
+
+
+</script>
+
+</html>

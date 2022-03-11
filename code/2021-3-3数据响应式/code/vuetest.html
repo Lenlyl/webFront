@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+</head>
+<body>
+    <h1>vue</h1>
+    <div id="app">
+        {{arr}}
+        <!-- <input v-model="message" /> {{message}} -->
+        <!-- v-bind v-on语法糖 -->
+        <!-- <input v-bind:value="message" v-on:input="message=$event.target.value" />{{message}} -->
+        <div v-html="myhtml"></div>
+    </div>
+</body>
+<script>
+
+// 数据驱动，数据优先
+let vm  = new Vue({
+    el:"#app",
+    data:{
+        message:"数据",
+        arr:[1,2,3],
+        myhtml:"<h1>标题</h1>"
+    }
+})
+
+// console.log(vm);
+// setTimeout(()=>{
+//     console.log("setTimeout");
+//     vm.message = "修改了";
+// },1000)
+
+
+</script>
+</html>

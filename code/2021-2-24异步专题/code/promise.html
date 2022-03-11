@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+// 三种状态 pending  fulfilled rejected
+// let p1 = new Promise((resolve,rejected)=>{
+//     // console.log();
+//     resolve(1);
+//     // rejected("err")
+// })
+// console.log(p1);
+// // then 2种回调 onResolved onRejected;
+// // p1.then(res=>{
+// //     console.log("onResolved",res);
+// // },err=>{
+// //     console.log("onRejected",err);
+// // })
+
+// // then 3种返还值  -->都会返还promise对象--->链式操作。
+// let res =  p1.then(res=>{
+//     console.log(res);
+//     // return 123
+//     return new Promise((res,rej)=>{
+//         // res("success");
+//         rej("err");
+//     })
+// }).catch(err=>{
+//     console.log("catch",err);
+// })
+// console.log(res);
+
+
+// let p1 =  Promise.resolve(111);
+// let p1 = Promise.reject("err")
+// new Promise(res=>{res(111)})
+// console.log(p1);
+
+// let p1 = new Promise((res,rej)=>{
+//     setTimeout(() => {
+//         rej(111);
+//     }, 2000);
+// })
+// p1.finally(()=>{
+//     console.log("完成");
+// })
+// let p2 = new Promise((res,rej)=>{
+//     setTimeout(() => {
+//         rej(222);
+//     }, 1000);
+// })
+
+// Promise.race([p1,p2]).then(res=>{
+//     console.log(res);
+// })
+
+// Promise.all([p1,p2]).then(res=>{
+//     console.log(res);
+// })
+
+// es2020;
+// Promise.allSettled([p1,p2]).then(res=>{
+//     console.log(res);
+// })
+
+
+
+</script>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+// 思维方式：1.面向过程  2.面向对象；
+
+// let obj = {
+//     name:"张三"
+// }
+// obj.__proto__.height="178cm"
+// console.log(obj);
+// es5写法
+// function Person(name){
+//     this.name = name;
+// }
+// Person.prototype.fn = function(){
+//     console.log("fn");
+// }
+
+// es6写法； 语法糖 --》语义化更强。
+// class Person{
+//     constructor(name){
+//         this.name = name;
+//     }
+//     fn(){
+//         console.log("fn");
+//     }
+// }
+// console.log(typeof Person);
+// let zhangsan = new Person("张三");
+
+// console.log(zhangsan);
+
+// 共有私有 
+// ES5；
+// function Person(){
+//     var _a = 10;
+//     this.name = "张三";
+// }
+
+// let zhangsan = new Person();
+// zhangsan.name;  //可以
+// zhangsan._a;  //不能；
+
+// ES6 私有成员  共有成员；
+// class Person{
+//     #_a = 10;
+//     constructor(){
+//         this.name = "张三";
+//     }
+//     #fn(){
+//         console.log("fn");
+//     }
+//     getA(){
+//         console.log(this.#_a);
+//     }
+// }
+// let zhangsan = new Person();
+// zhangsan.getA();
+// console.log( zhangsan.#_a);
+// class Person{
+//     constructor(){
+//         // this.myname = "张三";
+//     }
+//     get myname(){
+//         console.log("get");
+//         return "张三"
+//     }
+//     set myname(newValue){
+//         console.log("set",newValue);
+//     }
+// }
+// let zhangsan = new Person();
+// // console.log(zhangsan);
+// zhangsan.myname = "李四";
+
+// 静态成员 :和类相关  和  对象无关；
+// 单例模式 window  document 
+
+// 静态成员；
+// 单例模式 静态成员；
+// let instance;
+// class Person{
+//     static instance;
+//     constructor(myname){
+//         if(!Person.instance){
+//             Person.instance = this;
+//         }else{
+//             return Person.instance;
+//         }
+//         this.myname = myname;
+//     }
+// }
+
+// let zhangsan  = new Person("张三");
+// let lisi  = new Person("李四");
+// console.log(zhangsan,lisi);
+
+
+// 继承；
+// es5
+// function Dad(name){
+//     this.name = name;
+// }
+// function Son(name){
+//     Dad.call(this,name)
+// }
+
+// let son = new Son("李四");
+// console.log(son);
+
+// es6 
+// class Dad{
+//     constructor(name){
+//         this.name = name;
+//     }
+//     fn(){
+//         console.log("fn");
+//     }
+// }
+
+
+// class Son extends Dad{
+//     constructor(name){
+//         super(name);
+//         this.height = "178cm";
+//     }
+//     fn(){
+//         super.fn();
+//         console.log("son fn");
+//     }
+// }
+// let son = new Son("李四");
+// console.log(son);
+// son.fn()
+
+
+// class Dog{
+//    wow(){
+//     //    alert("wow");
+//     console.log("wow");
+//    }
+//    yelp(){
+//        this.wow();
+//    }
+// }
+
+
+// class MadDog extends Dog{
+//     yelp(){
+//         // _that = this;
+//         setInterval(()=>{
+//             this.wow();
+//         },500)
+//     }
+// }
+
+// let dog = new Dog();
+// dog.yelp();
+// let madDog = new MadDog();
+// madDog.yelp();
+
+
+// class Person{
+//     fn(){
+//         console.log("fn");
+//         // return this;
+//         return new Person();
+//     }
+// }
+
+// let zhangsan = new Person();
+
+// zhangsan.fn().fn().fn();
+
+// promise.then().then().then()....
+
+
+
+
+
+
+
+
+</script>
+</html>

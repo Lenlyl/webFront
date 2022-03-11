@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mypromise</title>
+  </head>
+  <body>
+    <div class="box">自己的promise</div>
+  </body>
+
+  <script type="module">
+    import LYLPromise from "./LYLPromise.js";
+    import KPromise from "../code/KPromise.js";
+    let p = new LYLPromise((resolve, reject) => {
+      //   setTimeout(() => {
+      //     resolve("success lyl p");
+      //     //执行顺序问题，不加timeout
+      //   }, 1000);
+      resolve("success lyl p");
+    });
+    // console.log(p);
+    let p1 = new LYLPromise((resolve, reject) => {
+      //   setTimeout(() => {
+      //     reject("err lyl p1");
+      //   }, 1000);
+      reject("err lyl p1");
+    });
+    // console.log(p1);
+
+    // let p2 = p1.then((res) => {
+    //   return new LYLPromise((resolve, reject) => {
+    //     reject("err new");
+    //   });
+    // });
+
+    // p1.then(
+    //   (res) => {
+    //     console.log("p1 then", res);
+    //   },
+    //   (err) => {
+    //     console.log("p1 then err: ", err);
+    //   }
+    // );
+
+    //链式调用
+    let pp = p.then((res) => {
+      console.log(res);
+      //   return 8888
+      return new LYLPromise(
+        (res) => {
+          res("new res result");
+        },
+        (err) => {
+          err("new err result");
+        }
+      );
+    });
+    console.log(pp);
+    pp.then((res) => {
+      console.log(res);
+    }).finally(() => {
+      console.log("pp finally");
+    });
+
+    //系统的类 MutationObserver 微任务
+    // setTimeout(() => {
+    //     console.log('setTimeout');
+    // });
+    // let ob = new MutationObserver(function() {
+    //     console.log('MutationObserver');
+    // });
+    // let ele = document.querySelector(".box")
+    // ob.observe(ele, {
+    //     attributes: true
+    // })
+    // ele.setAttribute('kkb', 'value')
+
+    //周边方法
+    //resolve
+    const promise1 = LYLPromise.resolve(123);
+    promise1.then((value) => {
+      console.log(value);
+      // expected output: 123
+    });
+    //reject
+    function resolved(result) {
+      console.log("Resolved");
+    }
+    function rejected(result) {
+      console.error(result);
+    }
+    LYLPromise.reject(new Error("fail")).then(resolved, rejected);
+  </script>
+</html>

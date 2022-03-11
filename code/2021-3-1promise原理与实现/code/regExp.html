@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    //1-匹配
+    //精确匹配
+    let string = "afafdf123dfdf456dfjj789kk";
+    let regex = /dfdf/;
+    console.log(regex.test(string));
+
+    //横向模糊匹配 b{m,n}， m到n个是b
+    regex = /ab{2,5}c/g;
+    string = "abc abbc abbbc abbbbc abbbbbc abbbbbbc";
+    console.log(string.match(regex));
+
+    //纵向模糊匹配 [abc]，表示该字符是可以字符“a”、“b”、“c”中的任何一个
+    regex = /a[123]b/g
+    string = "a0b a1b a2b a3b a4b b5a";
+    console.log(string.match(regex));
+
+
+    //2-字符组
+    //2.1范围表示法 连字符“-”来省略和简写
+    regex = /[1-6a-fG-M]/g
+    string = "123456abcdefGHIJKLM";
+    console.log(string.match(regex));
+    //连字符有特殊用途，那么要匹配“a”、“-”、“z”这三者中任意一个字符
+    //不能写成[a-z]
+    //-在头和尾：[-az]或[az-]
+    //加转义字符[a\-z]
+
+    //2.2 排除字符组 ^脱字符，表示求反
+    regex = /a[^123]b/g
+    string = "a0b a1b a2b a3b a44588b b5c a00b";
+    console.log(string.match(regex));
+
+
+    //2.3常见简写形式
+    /**
+     * \d就是[0-9]。表示是一位数字。记忆方式：其英文是digit（数字）。
+
+        \D就是[^0-9]。表示除数字外的任意字符。
+
+        \w就是[0-9a-zA-Z_]。表示数字、大小写字母和下划线。记忆方式：w是word的简写，也称单词字符。
+
+        \W是[^0-9a-zA-Z_]。非单词字符。
+
+        \s是[ \t\v\n\r\f]。表示空白符，包括空格、水平制表符、垂直制表符、换行符、回车符、换页符。记忆方式：s是space character的首字母。
+
+        \S是[^ \t\v\n\r\f]。 非空白符。
+
+        .就是[^\n\r\u2028\u2029]。通配符，表示几乎任意字符。换行符、回车符、行分隔符和段分隔符除外。记忆方式：想想省略号...中的每个点，都可以理解成占位符，表示任何类似的东西。
+    */
+    regex = /\w{1, 5}/g
+    string = "a0badf_DDee";
+    console.log(regex.test(string));
+
+
+    // 3. 量词
+    //3.1简写形式
+    /***
+    {m,} 表示至少出现m次。
+
+    {m} 等价于{m,m}，表示出现m次。
+
+    ? 等价于{0,1}，表示出现或者不出现。记忆方式：问号的意思表示，有吗？
+
+    + 等价于{1,}，表示出现至少一次。记忆方式：加号是追加的意思，得先有一个，然后才考虑追加。
+
+    * 等价于{0,}，表示出现任意次，有可能不出现。记忆方式：看看天上的星星，可能一颗没有，可能零散有几颗，可能数也数不过来。
+    * 
+    */
+    regex = /b{3,}/g
+    string = "abbbadf_DDee";
+    console.log(regex.test(string));
+
+    //3.2 贪婪匹配和惰性匹配
+    //贪婪 尽可能多的匹配 越多越好
+    regex = /\d{2,5}/g
+    string = "123 1234 12345 123456789";
+    console.log(string.match(regex));
+
+    //惰性 /\d{2,5}?/表示，虽然2到5次都行，当2个就够的时候，就不在往下尝试了
+    regex = /\d{2,5}?/g
+    string = "123 1234 12345 123456789";
+    console.log(string.match(regex));
+
+    // 4. 多选分支 "|"
+    regex = /good|nice/g
+    string = "good idea, nice try";
+    console.log(string.match(regex));
+    //注意:分支结构也是惰性 先匹配上了就不再尝试了
+    regex = /good|goodbye/g
+    string = "goodbye";
+    console.log(string.match(regex));
+
+
+    //5.案例分析  
+    //匹配字符，无非就是字符组、量词和分支结构的组合
+    //5.1 匹配16进制颜色值
+    regex = /#([0-9a-fA-F]{6}|[0-9a-f]{3})/g
+    string = "#ffaabb #qfffff $fabce3 #FF35De";
+    console.log(string.match(regex));
+    // 5.2 匹配时间
+    //已24小时为例
+    regex = /^([01][0-9]|[2][0-3]):[0-5][0-9]$/g
+    string = "23:59";
+    console.log(string, regex.test(string));
+
+    regex = /^(0?[0-9]|1[0-9]|[2][0-3]):(0?[0-9]|[1-5][0-9])$/g
+    string = "3:5";
+    console.log(string, regex.test(string));
+
+    //匹配日期 yyyy-MM-dd || yyyy-m-d
+    regex = /^[0-9]{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01])$/;
+    console.log(regex.test("2021-3-5"));
+    console.log(regex.test("2021-03-05"));
+    console.log('\\'); //字符串表示 \ 需要加转义字符”\“
+
+    // regex = /\[(.+?)\]/g
+    regex = "\\[(.+?)\\]"
+    string = '周四001[胜@3.750,平@2.900,负@2.900,胜胜@2.900]';
+    console.log(string.match(regex)['1']);
+    
+</script>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    //原型继承
+    // function Dad(name, age) {
+    //   this.name = name;
+    //   this.age = age;
+    //   this.money = "100000";
+    // }
+    // Dad.prototype.fn = function () {
+    //   console.log("Dad fn");
+    // };
+
+    // function Son(name, age) {
+    //   Dad.bind(this)(name, age);
+    //   this.sex = "男";
+    // }
+    // Son.prototype = Dad.prototype; //会导致传址问题，改变了父类
+    // Son.prototype.fn = function () {
+    //   console.log("Son fn");
+    // };
+    // let zhangSan = new Son("张三", 20);
+    // console.log(zhangSan.fn());
+
+    // let zhangSan2 = new Dad("张三父类", 20);
+    // console.log(zhangSan2.fn());
+
+    //复杂的数据类型(array, object, function……) 传址
+    // let DadProto = {
+    //   name: '张三',
+    //   age: 20
+    // }
+    // let SonProto = DadProto;
+    // SonProto.name = 'LiSi';
+    // console.log(SonProto);
+    // console.log(DadProto);
+
+    //简单数据类型 传值
+    // let a = 10;
+    // let b = a;
+    // b = 20;
+    // console.log(a);
+    // console.log(b);
+
+    //深拷贝;
+    // let DadProto = {
+    //   name: '张三',
+    //   age: 20,
+    //   fn: function () {
+    //     console.log('fn');
+    //   },
+    //   un: undefined
+    // }
+    // let SonProto = JSON.parse(JSON.stringify(DadProto)); //会丢失function, undefined
+    // SonProto.name = 'LiSi';
+    // console.log(SonProto);
+    // console.log(DadProto);
+
+    //深拷贝
+    let obj = {
+      name: '张三',
+      age: 20,
+      fn: function () {
+        console.log('fn');
+      },
+      un: undefined,
+      arr: []
+    }
+    function deepCopy(obj) {
+      let newObj = Array.isArray(obj) ? []:{};
+      for (let key in obj) {
+        if(obj.hasOwnProperty(key)){ //是不是自身的属性
+          if(typeof obj[key] === 'object'){
+            newObj[key] = deepCopy(obj[key]);
+          }else{
+            newObj[key] = obj[key];
+          }
+        }
+      }
+      return newObj
+    }
+
+    let obj2 = deepCopy(obj);
+    obj2.name = 'LiSi';
+    console.log(obj2);
+    console.log(obj);
+
+    let arr = [1,2,3];
+    let arr2 = deepCopy(arr);
+    arr2[2] = 33;
+    console.log(arr2);
+    console.log(arr);
+  </script>
+</html>

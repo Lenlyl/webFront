@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="js/react.js"></script>
+  <script src="js/react-dom.js"></script>
+</head>
+<body>
+<div id="root"></div>  
+<script>
+let a = React.createElement("a",{href:"https://react.docschina.org/"},"参考手册")
+let h1 = React.createElement("h1",{id:"title"},"hello react");
+let p = React.createElement("p",{className:"subTitle"},"React 的第一节课"," - ",a);
+let header = React.createElement("header",{className:"header"}, h1, p);
+ReactDOM.render(
+  header,
+  document.querySelector("#root")
+);
+</script>  
+</body>
+</html>

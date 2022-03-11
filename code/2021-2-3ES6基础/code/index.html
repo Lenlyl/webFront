@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+// var、let 及 const 区别？
+
+    // var ; 1.hoisting变量提升；
+    // console.log(a);
+    // var a = 10;
+    // var a;
+    // console.log(a);
+    // a = 10;
+    // fn();
+    // console.log(fn);
+    // function fn(){
+    //     console.log("fn");
+    // }
+    // 2.挂载在window上；
+    // var a = 10;
+    // console.log(window.a);
+
+    // 3、不支持块级作用域；
+    // {
+    //     var a = 10;
+    // }
+    // console.log(a);
+
+    // let const 
+    // 1.没有变量提升
+    // console.log(a);
+    // let a = 10;
+    // 2.不能重复声明；const 声明之后不能被重复赋值；
+    // let a = 10;
+    // a = 20;
+    // console.log(a);
+    // let a = 20;
+    // const a =  10;
+    // a = 20;
+    // console.log(a);
+    // 3.不会挂载在window上
+    // let a = 10;
+    // console.log(window.a);
+    // 4.有块级作用域；
+    // {
+    //     let a  = 10;
+    // }
+    // console.log(a);
+
+    // 说一下 ES6 对 Object 类型做了哪些优化更新?
+    // 1.优化？？？
+    // 1.对象属性变量式声明；
+    // let name = "张三";
+    // let age = 20;
+    // let obj = {
+    //     name,  //name:name
+    //     age
+    // }
+    // let obj = {
+    //     fn(){
+    //         console.log("fn");
+    //     }
+    // }
+    // console.log(obj);
+    //  2.对象 结构
+    // let obj = {
+    //     name: "张三",
+    //     age: 20
+    // }
+    // let {name:myname,age} = obj;
+    // console.log(myname,age);
+    // 3.对象扩展
+    // let obj = {
+    //     name: "张三",
+    //     age: 20
+    // }
+    // let newObj = {...obj,height:"178cm"};
+// 2.更新？？
+    // 1.Object.is
+    // 2.Object.assign
+    // 3.getOwonProertyDescriptors;
+    // 4.getPrototypeOf 及 setPrototypeOf;(__proto__)
+    // 5.keys() values() entries()
+
+
+
+
+
+
+    let arr = ["张三", "李四", "王五"];
+
+    // 命令式编程方式
+    // for(let i=0;i<arr.length;i++){
+    //     console.log(arr[i]);
+    // }
+
+    // 声明式编程
+    // let newArr =  arr.map((item,key)=>{
+    //     console.log(item,key);
+    //     return item;
+    // })
+    // console.log(newArr)
+    // 1.命令式编程方式（如何做？）   2.声明式编程（抽象过程）（做了什么？）
+
+    // 封装过程抽象；
+    Array.prototype.myMap = function (fn) {
+        let arr = [];
+        for (let i = 0; i < this.length; i++) {
+            arr.push(fn && fn(this[i], i));
+        }
+        return arr;
+    }
+
+
+    let res = arr.myMap((item, key) => {
+        console.log(item, key);
+        return item;
+    })
+    console.log(res);
+
+
+
+
+
+
+</script>
+
+</html>

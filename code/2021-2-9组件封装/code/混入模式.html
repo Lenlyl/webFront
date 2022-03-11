@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- {{mydata}}
+        {{message}} -->
+    </div>
+</body>
+<script>
+// 混入模式  mixin
+// class Hero{
+//     constructor(name){
+//         this.name = name;
+//     }
+// }
+
+// class Skills {
+//     run(){
+//         console.log("跑")
+//     }
+//     release(){
+//         console.log("释放技能");
+//     }
+// }
+// // luban ---Hero--Skills--skins...
+// // mixin
+
+// function Mixin(reClass,giveClass){
+//     if(typeof arguments[2] !== "undefined"){
+//         for(let i=2;i<=arguments.length;i++){
+//             reClass.prototype[arguments[i]] = giveClass.prototype[arguments[i]];
+//         }
+//     }
+// }
+
+// Mixin(Hero,Skills,"run","release")
+
+// let luban = new Hero("鲁班");
+// luban.release();
+// luban.run();
+
+
+// vue 混入
+// let mixinCon = {
+//     data:{
+//         mydata:"我的数据"
+//     }
+// }
+
+
+// new Vue({
+//     el:"#app",
+//     mixins:[mixinCon],
+//     data:{
+//         message:"数据"
+//     }
+// })
+// _extends
+
+
+
+</script>
+</html>

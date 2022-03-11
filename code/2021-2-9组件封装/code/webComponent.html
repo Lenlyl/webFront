@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <span></span> -->
+    <!-- <img src="#" is="my-img" /> -->
+    <my-com>
+        <div slot="head">插槽里的内容</div>
+        <div slot="footer">尾部</div>
+    </my-com>
+</body>
+<script>
+// 1.继承html元素组件
+// class MyImg extends HTMLImageElement{
+//     constructor(){
+//         super();
+//         // console.log(this);
+//         this.src = "./loading.jpg";
+//         setTimeout(()=>{
+//             this.src = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fa0.att.hudong.com%2F30%2F29%2F01300000201438121627296084016.jpg&refer=http%3A%2F%2Fa0.att.hudong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1615468060&t=18836efe87029418d6883b3998a2b361"
+//         },100)
+//     }
+// }
+// customElements.define("my-img",MyImg,{
+//     extends:"img"
+// })
+
+
+// 2.自定义独立元素
+let template = document.createElement("template");
+template.innerHTML = `
+<div>111
+<slot name="head"></slot>    
+<slot name="footer"></slot> 
+</div>
+<style>
+    div{
+        width:100px;
+        height:100px;
+        background:red;
+    }
+</style>
+`;
+
+class MyCom extends HTMLElement{
+    constructor(){
+        super();
+        // console.log(this);
+        let _sd = this.attachShadow({mode:"open"});
+        // console.log(template.content);s
+        _sd.appendChild(template.content);
+    }
+}
+
+customElements.define("my-com",MyCom)
+
+
+
+
+
+</script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script type="module">
+// 变量污染；AMD CMD -->COMMONJS(nodejs模块化) / ESM
+// 导入  导出；
+// import  './a.js';
+// import myobj,{a,b as c} from './a.js';
+// console.log("外部的",myobj,c);
+// import * as obj from './a.js'
+// console.log(obj);
+// 按需导入liveserver
+document.onclick = function(){
+    // import * as obj from './a.js'
+    import("./a.js").then(res=>{
+        console.log(res);
+    })
+}
+
+</script>
+</html>

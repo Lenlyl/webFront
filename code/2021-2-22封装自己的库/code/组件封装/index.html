@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <message-box
+        title="外部传入标题"
+        content="外部传入的内容"
+        draggable="false"
+    ></message-box> -->
+</body>
+<script type="module">
+    import Dialog from './dialog.js';
+    // 一、参数传递：1.属性  2. 插槽
+    // 二、事件处理：自定义事件
+    // document.querySelector("message-box").addEventListener("success",e=>{
+    //     console.log("点击确定了");
+    // })
+
+    let dialog = new Dialog({
+        title: "外部传入标题",
+        content: "外部传入的内容"
+    })
+
+
+    //作业： 1.实现可控制的拖拽功能 ；2.合并配置(2种或者以上)；
+//     let defalutOpts = {
+//         myname:"张三"
+//     }
+//     let config = {
+//         myname:"lisi",
+//         age:20
+//     }
+//    let opts =  Object.assign(defalutOpts,config);
+//    console.log(opts)
+</script>
+
+</html>

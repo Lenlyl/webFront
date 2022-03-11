@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>myEvery</h1>
+</body>
+
+<script>
+
+    //系统的
+    let arr = [1,2,3,4,5];
+    let result = arr.every((item, i) => {
+        console.log('every', item, i);
+        return item > 0;
+    });
+    console.log('every result', result);
+
+    //自定义every
+    Array.prototype.myEvery = function(fn) {
+        for (let index = 0; index < this.length; index++) {
+            let res = fn(this[index], index);
+            if(!res) return false;
+            if(index+1===this.length) return true;
+        }
+        return true;
+    }
+    let myResult = arr.myEvery((item, i) => {
+        console.log('myEvery', item, i);
+        return item > 0;
+    })
+    console.log('myEvery result', myResult);
+</script>
+</html>

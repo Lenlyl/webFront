@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      // component -> function
+
+      // function Bar (a,b) {
+      // }
+
+      // function Foo () {
+      // }
+
+      // props
+
+      const Bar = {
+        // 声明
+        props: ["title"],
+        template: `<div>Bar title: {{title}}</div>`,
+        // 创建
+        beforeCreate() {
+          // 前
+          console.log("bar-beforeCreate");
+        },
+        created() {
+          // 后 完成
+          console.log("bar-created");
+        },
+        // 挂载
+        beforeMount() {
+          // 前
+          console.log("bar-beforeMount");
+        },
+        mounted() {
+          // 完成
+          console.log("bar-mounted");
+          // this.$el.addEvent // 键盘事件
+        },
+      };
+
+      const Foo = {
+        components: {
+          Bar,
+        },
+        template: `<div>Foo
+          <Bar title="the title from foo component"></Bar>
+          {{count}}
+          <button @click="count++">click</button>
+          </div>`,
+        data() {
+          return {
+            count: 1,
+          };
+        },
+        // 创建
+        beforeCreate() {
+          // 前
+          console.log("beforeCreate");
+        },
+        // hook
+        created() {
+          // 后 完成
+          console.log("created");
+        },
+        // 挂载
+        beforeMount() {
+          // 前
+          console.log("beforeMount");
+        },
+        mounted() {
+          // 当调用到 mounted 的时候呢，所有的子组件都已经 mounted 完成了
+          // 完成
+          console.log("mounted");
+          // this.$el.addEvent // 键盘事件
+        },
+        // 更新
+        beforeUpdate() {
+          console.log("before - update");
+        },
+        updated() {
+          console.log("updated");
+        },
+        // 销毁
+        beforeDestroy() {
+          console.log("before -destroy");
+        },
+        destroyed() {
+          // this.$el.removeEvent // 键盘事件
+          // 比如说 这个 count -》 global count
+          // vuex ->
+          console.log("destroyed");
+        },
+      };
+
+      const app = new Vue({
+        el: "#app",
+        components: {
+          Foo,
+        },
+
+        template: `
+            <div>
+              app
+              <Foo v-if="isShowFoo"></Foo>
+              </div>
+        `,
+        data: {
+          isShowFoo: true,
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      //  v-if  v-for v-show
+      // 全局 自定义指令
+      Vue.directive("focus", {
+        bind(el,binding, vnode, oldVnode) {
+          // create
+          console.log(el)
+          console.log(binding)
+          console.log(vnode);
+          console.log(oldVnode);
+        },
+        inserted(el) {
+          // mounted
+          el.focus()
+        },
+      });
+
+      const Foo = {
+        components: {},
+        directives: {
+          fooFocus : {
+            //自定义局部指令
+            inserted: function (el) {
+              el.focus();
+            }
+          }
+        },
+        data() {
+          return {
+            count: 1
+          }
+        },
+        template: `<div>
+            Foo
+            <input type="text"/>
+          </div>`,
+      };
+
+      const app = new Vue({
+        el: "#app",
+        components: {
+          Foo,
+        },
+        template: `
+            <div>
+              app
+            <input type="text" v-focus/>
+              <Foo></Foo>
+              </div>
+        `,
+        data: {},
+      });
+    </script>
+  </body>
+</html>

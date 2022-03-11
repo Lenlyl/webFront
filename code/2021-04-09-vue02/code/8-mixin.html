@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      // mixin
+      const MousemoveMixin = {
+        data() {
+          return {
+            x: 0,
+            y: 0,
+          };
+        },
+        
+        mounted() {
+          console.log('MousemoveMixin mounted');
+          window.addEventListener("mousemove", this.handleMousemove);
+        },
+        destroyed() {
+          window.removeEventListener("mousemove", this.handleMousemove);
+        },
+        methods: {
+          handleMousemove(e) {
+            this.x = e.pageX;
+            this.y = e.pageY;
+          },
+        },
+      };
+
+      // 鼠标移动的时候可以获取 x ，y
+      const Foo = {
+        components: {},
+        // x, y
+        // mixin 的问题
+        // 1. 来源不清晰
+        // 2. 命名冲突 
+        // vue3  composition api
+        mixins: [MousemoveMixin],
+        template: `<div>Foo
+          {{x}} -- {{y}}
+          </div>`,
+        mounted: function () {
+          console.log('Foo mounted');
+        }
+      };
+
+      const app = new Vue({
+        el: "#app",
+        components: {
+          Foo,
+        },
+        mixins:[MousemoveMixin],
+        template: `
+            <div>
+              
+              {{x}} -- {{y}}
+              app
+              <Foo></Foo>
+              </div>
+        `,
+        data: {},
+
+        mounted: function () {
+          console.log('app mounted');
+        }
+      });
+    </script>
+  </body>
+</html>
