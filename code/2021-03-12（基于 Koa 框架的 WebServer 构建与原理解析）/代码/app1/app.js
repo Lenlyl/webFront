@@ -8,6 +8,7 @@ const app = new Koa();
 app.use(async function (ctx, next) {
 
     console.log(ctx.request.url);
+    console.log(ctx.request.ip);
 
     console.log('koa1');
 
@@ -15,7 +16,7 @@ app.use(async function (ctx, next) {
 
     console.log('koa1 - end');
 
-    ctx.body = 'koa';   // res.end('koa');
+    ctx.body = 'koa liyanlin';   // res.end('koa');
 });
 app.use(function () {
     return new Promise((resolve) => {
