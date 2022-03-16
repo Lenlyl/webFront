@@ -24,11 +24,11 @@ module.exports = function () {
             ctx.state.conn = await mysql.createConnection({
                 host: 'localhost',
                 user: 'root',
-                password: '123456',
+                password: 'liyanlin',
                 port: 3308,
-                database: 'mall16'
+                database: 'malls'
             });
-            // console.log('conn', ctx.state.conn);
+            console.log('conn', ctx.state.conn);
         }
 
         await next();
