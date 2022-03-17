@@ -21,12 +21,14 @@ module.exports = function () {
             // 需要链接数据库
 
             // 备注：课上临时使用的 docker 中 mysql，配置如下，你们根据自己数据库安装的信息进行配置
+            // 如遇Error: getaddrinfo ENOTFOUND localhost
+            // 在host文件中配置 127.0.0.1 localhost (使用工具SwitchHosts)
             ctx.state.conn = await mysql.createConnection({
                 host: 'localhost',
                 user: 'root',
                 password: 'liyanlin',
-                port: 3308,
-                database: 'malls'
+                port: 3306,
+                database: 'mall'
             });
             console.log('conn', ctx.state.conn);
         }

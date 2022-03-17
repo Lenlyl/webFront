@@ -4,11 +4,11 @@ const KoaStaticCache = require('koa-static-cache');
 const KoaRouter = require('koa-router');
 const Nunjucks = require('nunjucks');
 const fs = require('fs');
-const KoaBody = require('koa-body');
+const { resolve } = require('path');
+const db = require('./middlewares/db');
+const tpl = require('./middlewares/tpl');
 
-//数据
-const categories = require('./data/categories.json')
-const items = require('./data/items.json');
+//数据转换中间件
 const koaBody = require('koa-body');
 
 //1.静态资源
@@ -19,33 +19,56 @@ app.use(KoaStaticCache({
     gzip: true
 }))
 
+//连接数据库
+app.use(db());
 
 //2.动态资源
 var router = new KoaRouter();
 
-router.get('/index', async (ctx, next) => {
+//模板引擎中间件
+app.use(tpl({
+    dir: resolve(__dirname, 'template')
+}))
 
-    ctx.body = Nunjucks.renderString(fs.readFileSync('./html/index.html').toString(), { categories, items });
+router.get('/', async (ctx, next) => {
+
+    const [categories] = await ctx.state.conn.query(
+        'SELECT * FROM `categories` ',
+    )
+    const [items] = await ctx.state.conn.query(
+        'SELECT * FROM `items` ',
+    )
+
+    ctx.body = ctx.render('index.html', { categories, items });
 })
 
-router.get('/detail', koaBody(), async (ctx, next) => {
-    let url = ctx.request.url;
-    let categoryId = getUrlParam(url, 'categoryId');
-    let itemId = getUrlParam(url, 'id');
-    let categoryName = ['手机', '笔记本', '电脑'][categoryId - 1];
-    var itemDetail = items.find(e => e.id == itemId && e.category_id == categoryId);
-    itemDetail.categoryName = categoryName;
-    ctx.body = Nunjucks.render('./html/detail.html', { itemDetail })
+router.get('/detail/:id(\\d+)', async (ctx, next) => {
+
+    const [categories] = await ctx.state.conn.query(
+        'SELECT * FROM `categories` ',
+    )
+
+    let id = ctx.request.params.id;
+    const [[items]] = await ctx.state.conn.query(
+        'SELECT * FROM `items` WHERE id = ? ',
+        [id]
+    )
+
+    ctx.body = ctx.render('detail.html', { categories, items })
 })
 
-router.post('/detail', koaBody(), async (ctx, next) => {
+router.post('/content', koaBody(), async (ctx, next) => {
 
-    const { comment } = ctx.request.body;
-    console.log('评论内容：' + comment);
+    const { id, content } = ctx.request.body;
+    console.log('评论内容：' + id + '-' + content);
+    //存储评论到数据库
+    let [rs] = await ctx.state.conn.query(
+        "insert into `comments` (`item_id`, `content`, `created_time`) values (?, ?, ?)",
+        [id, content, Date.now()]
+    );
+    console.log('rs', rs);
 
-    var itemDetail = items[Math.random() * items.length - 1];
-    itemDetail.categoryName = '手机';
-    ctx.body = Nunjucks.render('./html/detail.html', { itemDetail })
+    ctx.body = '评论成功';
 })
 
 app.use(router.routes());

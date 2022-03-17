@@ -38,7 +38,7 @@ router.get('/', async (ctx, next) => {
     let [categories] = await ctx.state.conn.query(
         "select * from `categories`"
     );
-    // console.log('categories', categories);
+    console.log('categories', categories);
 
     // 根据 categories 进行查询，并把查询的结果存储在 categories 的新数据库 items 中
     for (let i = 0; i < categories.length; i++) {
@@ -124,4 +124,4 @@ router.post('/comment', KoaBody(), async (ctx, next) => {
 
 app.use(router.routes());
 
-app.listen(8888);
+app.listen(3000);
