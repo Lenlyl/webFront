@@ -42,6 +42,32 @@ router.get('/', async (ctx, next) => {
     ctx.body = ctx.render('index.html', { categories, items });
 })
 
+router.get('/list/:id(\\d+)', async (ctx, next) => {
+    let [categories] = await ctx.state.conn.query(
+        "select * from `categories`"
+    );
+
+    // 查询出当前想要看的分类下的所有数据
+    let id = ctx.request.params.id;
+
+    // 根据 categories 和 id，获取当前分类的名称
+    let category = categories.find(c => c.id == id);
+
+    // console.log('id', id);
+    let [items] = await ctx.state.conn.query(
+        "select * from `items` where `category_id`=? limit 4",
+        [id]
+    );
+
+    // console.log('categories', category);
+
+    ctx.body = ctx.render('list.html', {
+        categories,
+        items,
+        category
+    });
+});
+
 router.get('/detail/:id(\\d+)', async (ctx, next) => {
 
     const [categories] = await ctx.state.conn.query(
@@ -82,30 +108,9 @@ app.use(router.allowedMethods({
         return '不支持该请求方式'
     }
 }))
-// app.use(function () {
-//     return new Promise((resolve) => {
-//         setTimeout(function () {
-//             console.log('koa2');
-
-//             console.log('koa2 - end');
-
-//             resolve();
-//         }, 2000);
-//     })
-// });
 
 
 //监听端口
 app.listen(3000, () => {
     console.log('应用已经启动，http://localhost:3000');
 });
-
-
-//正则取url中参数
-const getUrlParam = (url, name) => {
-    var match = RegExp('[?&]' + name + '=([^&]*)').exec(url);
-    if (!match) {
-        return null;
-    }
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
