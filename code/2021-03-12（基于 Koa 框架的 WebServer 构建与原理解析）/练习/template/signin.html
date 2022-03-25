@@ -18,22 +18,18 @@
               <h2 class="title">登录</h2>
             </div>
             <div class="c">
-                <form action="" class="sign-form"> 
+                <form class="sign-form" method="post" enctype="application/x-www-form-urlencoded"> 
                     <p>
                         <label for="">用户名：</label>
-                        <input type="text" class="input" />
+                        <input type="text" class="input" name="username" />
                     </p>
                     <p>
                         <label for="">密码：</label>
-                        <input type="password" class="input" />
-                    </p>
-                    <p>
-                        <label for="">重复密码：</label>
-                        <input type="password" class="input" />
+                        <input type="password" class="input" name="password"/>
                     </p>
                     <p>
                       <button class="btn btn-primary">登录</button>
-                      <a href="" class="btn">我注册</a>
+                      <a href="/signup" class="btn">去注册</a>
                     </p>
                 </form>
             </div>
