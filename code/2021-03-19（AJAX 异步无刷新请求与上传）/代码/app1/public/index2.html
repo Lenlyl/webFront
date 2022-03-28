@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul></ul>
+
+    <script>
+        // 这段代码实际上给浏览器去执行
+        // 调用浏览器提供的 ajax api 去发送请求
+        // console.log('ajax');
+
+        let ulElement = document.querySelector('ul');
+
+        getUsers();
+
+        function getUsers() {
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('get', '/users');
+
+            xhr.onload = function () {
+                console.log('请求完成');
+                console.log(this.responseText);
+
+                let data = JSON.parse(this.responseText);
+                console.log(data);
+
+                ulElement.innerHTML = '';
+                data.forEach(user => {
+                    let liElement = document.createElement('li');
+                    liElement.innerHTML = user.username;
+                    ulElement.appendChild(liElement);
+                });
+
+                setTimeout(getUsers, 1000);
+            }
+
+            // 调用这个方法才会发送请求
+            xhr.send();
+        }
+
+    </script>
+</body>
+
+</html>
