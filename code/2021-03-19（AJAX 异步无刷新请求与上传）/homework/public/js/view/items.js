@@ -1,8 +1,9 @@
 import { getItems } from "../api/index.js";
 
-export async function viewItems() {
+export async function viewItems(p) {
 
-    let items = await getItems();
+    let data = await getItems(p);
+    const { items, page, totalPage, count } = data;
 
     let listElement = document.querySelector('.list-box .list');
     listElement.innerHTML = nunjucks.renderString(`
@@ -24,4 +25,15 @@ export async function viewItems() {
         </li>
     {% endfor %}
     `, { items });
+
+    let paginationElement = document.querySelector('.pagination');
+    paginationElement.innerHTML = nunjucks.renderString(`
+        <a href="">首页</a>
+        <a href="">&lt;</a>
+        {% for i in range(0, totalPage)%}
+            <a href="javascript:;" {% if i+1 == page %} class="current" {%endif%}>{{i+1}}</a>
+        {% endfor %}
+        <a href="">&gt;</a>
+        <a href="">尾页</a>
+    `, { totalPage, page });
 }

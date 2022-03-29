@@ -3,6 +3,7 @@ const KoaBody = require('koa-body');
 const KoaStaticCache = require('koa-static-cache');
 const KoaRouter = require('koa-router');
 const db = require('./middlewares/db');
+const koaBody = require('koa-body');
 const app = new Koa();
 
 //静态资源
@@ -28,10 +29,26 @@ router.get('/categories', async (ctx, next) => {
 
 router.get('/items', async (ctx, next) => {
 
-    const [items] = await ctx.state.conn.query(
-        'SELECT * FROM `items` ',
+    let limit = 4;
+    let page = ctx.request.query.page || 1;
+    let offset = (page - 1) * limit;
+
+    const [[{ count }]] = await ctx.state.conn.query(
+        'select count(*) as count from `items`'
     )
-    ctx.body = items
+    let totalPage = Math.ceil(count/limit);
+
+    const [items] = await ctx.state.conn.query(
+        'SELECT * FROM `items` limit ? offset ?',
+        [limit, offset]
+    )
+
+    ctx.body = {
+        page, //当前页
+        items, //当前页数据
+        totalPage, //总页数
+        count //总条数
+    }
 })
 
 app.use(router.routes());
