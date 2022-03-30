@@ -51,6 +51,20 @@ router.get('/items', async (ctx, next) => {
     }
 })
 
+router.post('/avatar', koaBody({
+    multipart: true, //是否支持 multipart-formdate 的表单
+    formidable: {
+        maxFileSize: 10 * 1024 * 1024, //10M 限制文件大小
+        uploadDir: './public/avatar', //文件上传存储路径
+        keepExtensions: true, //保留源文件后缀名
+        hash: true
+    },
+}), (ctx, next) => {
+    const {avatar} = ctx.request.files;
+    console.log(avatar);
+    ctx.body = '/' + avatar.path;
+})
+
 app.use(router.routes());
 
 app.listen(3000);

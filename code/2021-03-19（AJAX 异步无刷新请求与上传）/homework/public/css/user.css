@@ -52,6 +52,7 @@
     border-radius: 50%;
     overflow: hidden;
     background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 .avatar-edit {
     position: absolute;
@@ -60,8 +61,10 @@
     display: none;
     width: 43px;
     height: 43px;
-    background: url('https://account.xiaomi.com/static/res/7c3e9b0/passport/acc-2014/img/n-ava-edit.png') no-repeat;
+    background-image: url('https://account.xiaomi.com/static/res/7c3e9b0/passport/acc-2014/img/n-ava-edit.png');
+    background-repeat: no-repeat;
     cursor: pointer;
+    background-size: cover;
 }
 .avatar-edit:hover {
     opacity: .8;
