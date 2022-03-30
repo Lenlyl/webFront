@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button>登录</button>
+    <button>获取数据</button>
+
+    <script src="/public/js/axios.js"></script>
+    <script>
+        let btns = document.querySelectorAll('button')
+
+
+        btns[0].onclick = async function () {
+            let rs = await axios({
+                method: 'post',
+                url: '/signin'
+            });
+            // console.log('rs', rs);
+
+            localStorage.setItem('token', rs.headers.authorization);
+        }
+
+
+        btns[1].onclick = async function () {
+            let rs = await axios({
+                method: 'get',
+                url: '/data',
+                headers: {
+                    'authorization': localStorage.getItem('token'),
+                }
+            });
+
+            console.log('rs', rs.data);
+        }
+    </script>
+</body>
+
+</html>

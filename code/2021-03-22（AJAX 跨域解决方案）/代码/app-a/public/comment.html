@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>评论</h1>
+    <hr>
+    <div>
+        <h2>登录</h2>
+        <p>
+            用户名：<input type="text" id="username" />
+        </p>
+        <p>
+            密码：<input type="password" id="password" />
+        </p>
+        <p>
+            <button>登录</button>
+        </p>
+    </div>
+    <hr>
+    <div>
+        <h2>评论</h2>
+        <p>
+            评论内容
+            <textarea id="content" cols="30" rows="10"></textarea>
+        </p>
+        <p>
+            <button>发表</button>
+        </p>
+    </div>
+
+
+    <script src="/js/axios.js"></script>
+    <script>
+        let usernameElement = document.querySelector('#username');
+        let passwordElement = document.querySelector('#password');
+        let contentElement = document.querySelector('#content');
+        let btns = document.querySelectorAll('button');
+
+        axios.defaults.baseURL = 'http://localhost:8888';
+        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+
+        // 登录
+        btns[0].onclick = async function () {
+            let rs = await axios({
+                method: 'post',
+                url: '/signin',
+                data: {
+                    // username: usernameElement.value,
+                    // password: passwordElement.value
+                    username: 'zMouse',
+                    password: '123'
+                },
+                // 跨域请求是否允许携带cookie 
+                withCredentials: true
+            });
+
+            console.log('rs', rs);
+        }
+
+        // 提交评论
+        btns[1].onclick = async function () {
+            let rs = await axios({
+                method: 'post',
+                url: '/comment/1',
+                data: {
+                    content: 'abcdfdf'
+                },
+                // 是否允许当前请求中携带凭证（cookie）
+                withCredentials: true
+            });
+
+            console.log('rs', rs);
+        }
+    </script>
+</body>
+
+</html>

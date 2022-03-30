@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>跨域资源获取</h1>
+
+    <button>获取所有的分类</button>
+    <button>非简单请求</button>
+
+    <script src="/js/axios.js"></script>
+    <script>
+        let btns = document.querySelectorAll('button');
+
+        axios.defaults.baseURL = 'http://localhost:8888';
+        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+        // 获取所有分类信息
+        // 同源策略
+        btns[0].onclick = async function () {
+            let rs = await axios({
+                url: '/categories'
+            });
+
+            console.log('rs', rs);
+        }
+
+        // 非简单请求
+        // 我们把请求头 content-type 的值设置为 application/json
+        btns[1].onclick = async function () {
+            let rs = await axios({
+                method: 'POST',
+                url: '/postJson',
+                // data: 'a=1',
+                data: {
+                    a: 1
+                }
+            });
+            console.log('rs', rs);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "username": "zMouse",
+        "password": "123",
+        "avatar": ""
+    },
+    {
+        "id": 2,
+        "username": "haizi",
+        "password": "123",
+        "avatar": ""
+    },
+    {
+        "id": 3,
+        "username": "xiaorui",
+        "password": "123",
+        "avatar": ""
+    }
+]

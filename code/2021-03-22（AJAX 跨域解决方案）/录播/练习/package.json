@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "start3000": "nodemon app3000.js",
+    "start4000": "nodemon app4000.js"
+  },
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
