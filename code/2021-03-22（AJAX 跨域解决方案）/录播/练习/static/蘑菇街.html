@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/mogu.css" />
+    <script src="jsonp.js"></script>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="headerContainer">
+        <img
+          src="https://s10.mogucdn.com/mlcdn/c45406/190102_088f4i166l4gkl08k297h5kk8690i_260x200.png"
+        />
+        <div class="catalog">目录</div>
+        <div class="searchContainer">
+          <input type="text" class="searchInput" />
+          <button class="btn"></button>
+        </div>
+        <div class="iconShow">
+          <span class="iconMessage"></span>
+          消息
+        </div>
+        <div class="iconShow">
+          <span class="iconCollect"></span>
+          收藏
+        </div>
+      </div>
+      <h3 class="sub_title">全部食品</h3>
+      <div class="nav_box">
+        <div class="txt">
+          <span>￥</span>
+        </div>
+        <span class="divid">-</span>
+        <div class="txt">
+          <span>￥</span>
+        </div>
+        <a class="confirm_btn" href="javascript:;">确定</a>
+      </div>
+      <div class="itemContainer">
+        <!-- 商品呈现 -->
+      </div>
+    </div>
+  </body>
+  <script>
+    // console.log(ajax);
+    var page = 1;
+
+    getData();
+
+    function getData() {
+      ajax({
+        dataType: "jsonp",
+        jsonp: "callback",
+        url: "https://list.mogu.com/search",
+        data: {
+          _version: 8193,
+          ratio: "3%3A4",
+          cKey: 15,
+          page,
+          sort: "pop",
+          ad: 0,
+          cid: 52014,
+          action: "food",
+        },
+        success: function (res) {
+        //   console.log(res);
+        // console.log(res?.result?.wall?.docs);
+          if(res.status.code === 1001){
+            page ++;
+            let items = res?.result?.wall?.docs || [];
+            items.forEach(item => {
+                addItem(item);
+            });
+          }
+        },
+      });
+    }
+
+    function addItem(item) {
+        let container = document.querySelector(".itemContainer");
+        let div = document.createElement('div');
+        div.className = 'item';
+        div.innerHTML = `
+            <img
+                src="${item.img}"
+            />
+            <div class="bottom-describe">
+                <p class="describe">
+                ${item.title}
+                </p>
+                <div class="priceContainer">
+                <b>¥${item.price}</b>
+                <!-- class="oldPrice" -->
+                <span>销量${item.sale}</span>
+                <span class="mystar">
+                    <img
+                    src="https://s18.mogucdn.com/p2/160908/upload_27g4f1ch6akie83hacb676j622b9l_32x30.png"
+                    alt=""
+                    />
+                    ${item.cfav}
+                </span>
+                </div>
+            </div>
+        `
+        container.appendChild(div);
+    }
+
+    //上拉加载更多
+    document.onscroll = function(e){
+        // console.log(e);
+        let windowH = document.documentElement.clientHeight; //显示屏幕固定高度
+        let contentH = document.documentElement.offsetHeight; //显示内容高度
+        let scrollH = contentH - windowH;
+        let scrollTop = document.documentElement.scrollTop; //滚动距离顶部的高度
+        console.log(windowH + '_' + contentH + '+++++' + scrollTop);
+        if(scrollTop >= (scrollH - 10)){
+            //注意：滚动距离一直在刷，滚动慢可能回调多次
+            getData();
+        }
+    }
+
+  </script>
+</html>

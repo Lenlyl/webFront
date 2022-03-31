@@ -10,14 +10,23 @@
     <button>点击获取数据</button>
 </body>
 <script>
+
+    function cbf (arg) {
+        console.log(arg);
+    }
+
     let btn = document.querySelector('button');
     btn.onclick = function(){
-        let xml = new XMLHttpRequest();
-        xml.open('get', '/getAjax');
-        xml.onload = function(res) {
-            console.log(res);
-        };
-        xml.send();
+        // let xml = new XMLHttpRequest();
+        // xml.open('get', 'http://localhost:4000/getAjax');
+        // xml.onload = function(res) {
+        //     console.log(res);
+        // };
+        // xml.send();
+        
+        let sp = document.createElement('script');
+        sp.src = `http://localhost:4000/getAjax?cb=cbf`;
+        document.querySelector('head').append(sp);
     }
 </script>
 </html>

@@ -11,10 +11,21 @@ router.get("/",(ctx,next)=>{
 })
 
 router.get("/getAjax",(ctx,next)=>{
-    ctx.body = {
+    
+    console.log('getAjax 4000 请求了', ctx.query.cb);
+
+    // ctx.body = {
+    //     name:"李四 4000",
+    //     age:4000
+    // }
+
+    // ctx.body = `${ctx.query.cb}(${4000})`
+
+    let obj = {
         name:"李四 4000",
-        age:4000
+        age:40
     }
+    ctx.body = `${ctx.query.cb}(${JSON.stringify(obj)})`
 })
 
 app.use(router.routes());
