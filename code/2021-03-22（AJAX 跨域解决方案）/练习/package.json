@@ -1,0 +1,22 @@
+{
+  "name": "homework",
+  "version": "1.0.0",
+  "description": "服务1",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "app2": "nodemon app2.js"
+  },
+  "author": "liyanlin",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.13.4",
+    "koa-router": "^10.1.1",
+    "koa-server-http-proxy": "^0.1.0",
+    "koa-static-cache": "^5.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

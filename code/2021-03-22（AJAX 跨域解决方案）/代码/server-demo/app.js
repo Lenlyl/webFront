@@ -13,15 +13,16 @@ app.keys = config.auth.keys;
 
 app.use(async (ctx, next) => {
 
-    ctx.set('Access-Control-Allow-Origin', 'http://localhost:9999');
-    ctx.set('Access-Control-Allow-Credentials', 'true');
+    ctx.set('Access-Control-Allow-Origin', 'http://localhost:9999'); //指定域
+    // ctx.set('Access-Control-Allow-Origin', '*'); //指定所有源均可访问
+    ctx.set('Access-Control-Allow-Credentials', 'true'); //允许识别跨域请求的身份凭证cookies token这些
 
     await next();
 });
 
 app.use(async (ctx, next) => {
 
-    // console.log(ctx.method)
+    // 处理预检请求
     if (ctx.method.toUpperCase() === 'OPTIONS') {
         ctx.set('Access-Control-Allow-Methods', '*');
         ctx.set('Access-Control-Allow-Headers', 'content-type');

@@ -19,7 +19,7 @@ const router = new KoaRouter();
 router.post('/signin', async (ctx, next) => {
     let token = jwt.sign({
         id: 1,
-        username: 'zMouse'
+        username: 'Ton'
     }, key);
     // console.log('token', token);
 
