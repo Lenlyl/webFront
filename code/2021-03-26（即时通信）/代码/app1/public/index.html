@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>获取数据</button>
+
+    <ul></ul>
+
+    <script>
+
+        let btns = document.querySelectorAll('button');
+        let ul = document.querySelector('ul');
+
+        btns[0].onclick = function () {
+            // 获取数据
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('get', '/users');
+
+            xhr.onload = function () {
+                let data = JSON.parse(this.responseText);
+
+                ul.innerHTML = '';
+                data.forEach((d) => {
+                    let li = document.createElement('li');
+                    li.innerHTML = d.username;
+                    ul.appendChild(li);
+                });
+            }
+
+            xhr.send();
+        }
+
+    </script>
+</body>
+
+</html>

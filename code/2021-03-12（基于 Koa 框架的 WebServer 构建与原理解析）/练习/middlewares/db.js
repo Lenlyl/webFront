@@ -8,8 +8,9 @@ module.exports = function () {
         if(!ctx.state.conn){
             var connection = await mysql.createConnection({
                 host: 'localhost',
-                user: 'root',
-                password: 'liyanlin',
+                // user: 'root',
+                // password: 'liyanlin',
+                user: 'mysql',
                 database: 'mall'
             });
     

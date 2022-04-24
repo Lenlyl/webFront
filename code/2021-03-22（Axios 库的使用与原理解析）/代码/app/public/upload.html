@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="file" id="f">
+
+    <script>
+        let f = document.querySelector('#f')
+
+        f.onchange = function () {
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('post', '/upload')
+
+            xhr.onload = function () {
+                // 请求完成
+            }
+
+            console.log(xhr.upload)
+            xhr.upload.onload = function () {
+                // 上传完成
+            }
+
+            let lastLoaded = 0;
+            let lastTime = Date.now();
+            xhr.upload.onprogress = function (e) {
+                // console.log(e);
+                // 两次的差值
+                let v = e.loaded - lastLoaded;
+                lastLoaded = e.loaded;
+                let vt = Date.now() - lastTime;
+                lastTime = Date.now();
+
+                // console.log((e.loaded / e.total).toFixed(2));
+
+                console.log(`${v / 1024} k / ${vt / 1000} s`);
+                // let rate = ?;
+            }
+
+
+            let fd = new FormData();
+            fd.append('f', f.files[0])
+            xhr.send(fd);
+        }
+    </script>
+</body>
+
+</html>

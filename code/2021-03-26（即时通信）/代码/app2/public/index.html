@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>获取数据</button>
+
+    <ul></ul>
+
+    <script>
+
+        let btns = document.querySelectorAll('button');
+        let ul = document.querySelector('ul');
+
+        btns[0].onclick = function () {
+            let source = new EventSource("/users");
+
+            // source.onmessage = function (e) {
+            //     console.log(e.data);
+            // }
+
+            source.addEventListener('ping', e => {
+                console.log(e.data);
+
+                renderUsers(JSON.parse(e.data));
+
+            });
+        }
+
+
+        function renderUsers(data) {
+            ul.innerHTML = '';
+            data.forEach((d) => {
+                let li = document.createElement('li');
+                li.innerHTML = d.username;
+                ul.appendChild(li);
+            });
+        }
+
+    </script>
+</body>
+
+</html>

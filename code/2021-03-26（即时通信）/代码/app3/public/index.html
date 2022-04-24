@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <p>
+        用户名：<input type="text" id="username">
+        <button id="loginBtn">登录</button>
+    </p>
+    <hr>
+    <p>
+        <input type="text" id="sendContent">
+        <button id="sendBtn">发送</button>
+    </p>
+    <hr>
+
+    <ul></ul>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+        let usernameElement = document.querySelector('#username');
+        let loginBtnElement = document.querySelector('#loginBtn');
+        let sendContentElement = document.querySelector('#sendContent');
+        let sendBtnElement = document.querySelector('#sendBtn');
+        let ulElement = document.querySelector('ul');
+
+        let socket = null;
+
+        let token = '';
+
+        // 登录
+        loginBtnElement.onclick = function () {
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('get', `/login?username=${usernameElement.value}`);
+
+            xhr.onload = function () {
+                if (xhr.status !== 200) {
+                    alert('登录失败')
+                } else {
+
+                    token = xhr.getResponseHeader('authorization');
+                    // console.log(token);
+
+                    socket = io('', {
+                        auth: {
+                            token
+                        }
+                    });
+
+                    /**
+                     * socket
+                     *  emit：发送消息
+                     *  on：监听消息
+                     */
+
+                    socket.on('message', (data) => {
+                        console.log('server', data);
+                        renderData(data);
+                    });
+                }
+            }
+
+            xhr.send();
+
+
+        }
+
+        // 发送消息
+        sendBtnElement.onclick = function () {
+            let content = sendContent.value;
+            if (content !== '') {
+                console.log(123)
+                socket.emit('message', content);
+            }
+        }
+
+        function renderData(data) {
+            let li = document.createElement('li');
+            li.innerHTML = `${data.user.username} 说：${data.data}`;
+            ulElement.appendChild(li);
+        }
+    </script>
+</body>
+
+</html>

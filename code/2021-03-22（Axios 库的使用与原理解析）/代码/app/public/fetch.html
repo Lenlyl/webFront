@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        (async function () {
+            let req = new Request('/data', {
+                method: 'get'
+            });
+
+            let rs = await fetch(req);
+            console.log('rs', rs);
+            let data = await rs.text();
+            console.log('data', data);
+
+            // 不支持 upload 事件
+        })()
+    </script>
+</body>
+
+</html>
