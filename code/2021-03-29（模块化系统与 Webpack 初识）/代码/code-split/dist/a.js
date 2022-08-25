@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcode_split=self.webpackChunkcode_split||[]).push([[786],{992:(s,e,c)=>{function l(s){console.log("这里是a.js的方法")}c.d(e,{a:()=>l})}},s=>{s(s.s=992)}]);

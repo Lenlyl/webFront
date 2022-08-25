@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcode_split=self.webpackChunkcode_split||[]).push([[826],{10:(e,s,l)=>{var o=l(992);Promise.resolve().then(l.t.bind(l,669,23)),console.log("index.js"),(0,o.a)()}},e=>{e.O(0,[184,786],(()=>(10,e(e.s=10)))),e.O()}]);

@@ -1,0 +1,22 @@
+.single_line {
+    line-height: 150px;
+    border: 1px dashed #cccccc;
+    padding-left: 5px;
+    font-size: 12px;
+}
+.mulit_line{ 
+    border:1px dashed #cccccc; 
+    padding-left:5px;
+}
+.mulit_line span{ 
+    display:inline-block; 
+    vertical-align:middle;
+}
+.mulit_line i{
+    width:1px; 
+    display:inline-block;
+    vertical-align:middle; 
+    font-size:0;
+    background:red;
+    line-height:150px;
+}

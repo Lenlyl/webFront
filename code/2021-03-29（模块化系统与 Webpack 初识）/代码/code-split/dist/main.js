@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcode_split=self.webpackChunkcode_split||[]).push([[179],{220:(s,e,l)=>{var o=l(992),c=l(669),n=l.n(c);console.log("index.js"),(0,o.a)(),console.log(n())}},s=>{s.O(0,[184,786],(()=>(220,s(s.s=220)))),s.O()}]);

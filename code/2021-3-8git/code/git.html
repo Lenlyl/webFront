@@ -1,63 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+
 </body>
 <script>
-// console.log(111);  // 版本一
-// console.log(222);   // 版本二
-// console.log(333);  //版本三
-// 记录写代码过程？--->版本控制工具；
-// git（分布式，去中心化）---》github gitee    svn（服务器控制）
-// win系统 安装git之后 就可以在程序里找到 gitbash 程序 ，支持 linux 命令
+    // console.log(111);  // 版本一
+    // console.log(222);   // 版本二
+    // console.log(333);  //版本三
+    // 记录写代码过程？--->版本控制工具；
+    // git（分布式，去中心化）---》github gitee    svn（服务器控制）
+    // win系统 安装git之后 就可以在程序里找到 gitbash 程序 ，支持 linux 命令
 
 
-// 初始化git  git init  创建一个隐藏的 .git 目录记录git里的各种配置及操作；
-// 配置用户和邮箱  ；
-// git config --global user.name "你的姓名"
-// git config --global user.email "你的邮箱"
-// 查看配置  git config --list
+    // 初始化git  git init  创建一个隐藏的 .git 目录记录git里的各种配置及操作；
+    // 配置用户和邮箱  ；
+    // git config --global user.name "你的姓名"
+    // git config --global user.email "你的邮箱"
+    // 查看配置  git config --list
 
-// 查看 git 状态  git status 
+    // 查看 git 状态  git status 
 
-// 提交到暂存区  git add 文件名； 
-// 提交仓库  git commit -m ""
-// 记录版本流程   git add 文件名 -->暂存区 git  commit --->仓库
-// 查看记录   git log 或者 git log --oneline git reflog 查看详细历史记录；
+    // 提交到暂存区  git add 文件名； 
+    // 提交仓库  git commit -m ""
+    // 记录版本流程   git add 文件名 -->暂存区 git  commit --->仓库
+    // 查看记录   git log 或者 git log --oneline git reflog 查看详细历史记录；
 
-// 回退； 
-// git checkout . 清空 工作区域
-// 暂存区回退到工作区域   git reset . 
-// 回退版本  git reset --hard CommitID;
+    // 回退； 
+    // git checkout . 清空 工作区域
+    // 暂存区回退到工作区域   git reset . 
+    // 回退版本  git reset --hard CommitID;
 
-// 删除 ；
-// git rm 文件名 删除文件 删除 仓库和工作区文件
-// git rm --cached 文件名  只删除仓库
+    // 删除 ；
+    // git rm 文件名 删除文件 删除 仓库和工作区文件
+    // git rm --cached 文件名  只删除仓库
 
-// 比较 diff
-// git diff 比较工作区 和 暂存区区别  
-// git diff  --cached 比较暂存区域和仓库区别
+    // 比较 diff
+    // git diff 比较工作区 和 暂存区区别  
+    // git diff  --cached 比较暂存区域和仓库区别
 
 
-// 分支 
-// 查看分支 git branch
-// 创建分支 git branch 文件名；
-// 合并分支  git merge
-// 删除分支   git branch -d 分支名（必须合并）;
-// git branch -D (强制删除);
+    // 分支 
+    // 查看分支 git branch
+    // 创建分支 git branch 文件名；
+    // 合并分支  git merge
+    // 删除分支   git branch -d 分支名（必须合并）;
+    // git branch -D (强制删除);
 
-// tag 新建 git tag 标签名称
-// 切换tag  git checkout 标签名称；
+    // tag 新建 git tag 标签名称
+    // 切换tag  git checkout 标签名称；
 
-//作业： 同步一个本地仓库到线上  完成一次冲突解决 提供线上项目地址。（日期，查看解决冲突记录）;
+    //作业： 同步一个本地仓库到线上  完成一次冲突解决 提供线上项目地址。（日期，查看解决冲突记录）;
+    function to(promise) {
+        console.log(promise);
+        return promise.then(data => [null, data]).catch(err => [err]);
+    }
 
+    (async function () {
+        let [err, p] = await to(Promise.resolve('hello'));
+        console.log(err, p);
+        let [err2, p2] = await to(Promise.reject('error'));
+        console.log(err2, p2);
+        if(!p2){
+            console.log('p2 is undefined');
+        }
+    })();
 
 
 </script>
+
 </html>

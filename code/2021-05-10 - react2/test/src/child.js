@@ -1,4 +1,6 @@
 import { Component } from "react";
+import "./child.css";
+
 /*
   组件挂载阶段(mount): 从组件初始化--> 组件中的内容挂载到真实 DOM 中
     - constructor
@@ -24,8 +26,8 @@ class Child extends Component {
     }
   }
   static getDerivedStateFromProps(props, newState) {
-    console.log(1, "将props中的数据映射到state中去");
-    console.log(props, newState);
+    // console.log(1, "将props中的数据映射到state中去");
+    // console.log(props, newState);
     return newState;//将props的内容，映射到state中去
   }
 
@@ -62,6 +64,16 @@ class Child extends Component {
         <button onClick={this.afterYear}>afterYear</button>
         <p>{name}</p>
         <p id="p">0</p>
+        <p className="single_line">
+          这是一行文字这是一行文字这是一行文字
+          是一行文字这是一行文字这是一行文字
+        </p>
+        <p className="mulit_line">
+          <span style={{fontSize: '12px'}}>这里是高度为150px的标签内的多行文字，文字大小为12像素。
+            <br />这里是第二行，用来测试多行的显示效果
+          </span>
+          {/* <i>&nbsp;</i> */}
+        </p>
       </div>
     </div>
   }
@@ -70,7 +82,7 @@ class Child extends Component {
     console.log('获取更新之前的快照', props, state);
     return state;
   }
-  componentDidUpdate (props, odlState) {
+  componentDidUpdate(props, odlState) {
     console.log('componentDidUpdate', props, odlState);
     console.log('current state: ', this.state);
   }
