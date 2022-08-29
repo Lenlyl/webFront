@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "target": "ES5",
+        "watch": true,
+        "strictNullChecks": true, //严格模式检测null
+        "noImplicitAny": true, //隐式any检查
+        "lib": ["DOM", "ESNext", "DOM.Iterable"],
+        "allowJs": true,
+        "skipLibCheck": true
+    },
+    "include": ["./src/**/*"]
+}
