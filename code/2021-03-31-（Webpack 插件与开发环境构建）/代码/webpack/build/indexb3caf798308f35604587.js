@@ -10,6 +10,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/index.css":
+/*!***********************!*\
+  !*** ./src/index.css ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://webpack/./src/index.css?");
+
+/***/ }),
+
 /***/ "./src/a.js":
 /*!******************!*\
   !*** ./src/a.js ***!
@@ -26,7 +36,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./a */ \"./src/a.js\");\n\n\n(0,_a__WEBPACK_IMPORTED_MODULE_0__.a)();\nconsole.log('这里是index.js输出');\n\n//# sourceURL=webpack://webpack/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./a */ \"./src/a.js\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.css */ \"./src/index.css\");\n\n\n\n(0,_a__WEBPACK_IMPORTED_MODULE_0__.a)();\nconsole.log('这里是index.js输出');\n\n//# sourceURL=webpack://webpack/./src/index.js?");
 
 /***/ })
 

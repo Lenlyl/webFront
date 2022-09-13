@@ -1,4 +1,7 @@
 const { resolve } = require('path');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: 'development',
@@ -28,7 +31,31 @@ module.exports = {
         //接收绝对路径
         path: resolve(__dirname, './build'),
         //占位符  https://webpack.docschina.org/configuration/output#outputfilename
-        filename: '[name].js'
+        filename: '[name][hash].js',
+        clean: true
+    },
+
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    'css-loader'
+                ]
+            }
+        ]
     },
     
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'app.html',
+            template: './public/index.html'
+        }),
+        new MiniCssExtractPlugin({
+            filename: '[name].css'
+        })
+    ]
 }
