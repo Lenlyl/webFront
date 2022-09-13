@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log("这里是a方法的输出"),console.log("这里是index.js输出")})();
