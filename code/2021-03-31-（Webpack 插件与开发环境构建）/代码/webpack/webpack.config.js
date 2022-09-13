@@ -48,7 +48,7 @@ module.exports = {
             }
         ]
     },
-    
+
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'app.html',
@@ -57,5 +57,22 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css'
         })
-    ]
+    ],
+
+    devServer: {
+        port: 8080,
+        open: true,
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8080',
+                pathRewrite: {
+                    '^/api': ''
+                }
+            },
+            '/htps': {
+                target: 'https://other-server.example.com',
+                secure: false,
+            },
+        }
+    }
 }
