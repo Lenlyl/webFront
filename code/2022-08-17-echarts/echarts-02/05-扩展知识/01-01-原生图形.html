@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原生图形</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 800px;
+            height: 700px;
+            background: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    /*实例化echarts*/
+    const myChart = echarts.init(document.getElementById('main'));
+    /*配置项*/
+    let option={
+        /*graphic 原生图形组件
+        *   type 图形类型，image, text, circle, sector, ring...
+        *   position 位置
+        *   shape 相关于图形的属性
+        *   style 图形样式
+        *   draggable 可否拖拽
+        *   onmouseover 鼠标划上
+        *   onmouseup 鼠标抬起
+        *   onmouseout 鼠标划出
+        * */
+        graphic:{
+            id:1,
+            type:'circle',
+            position:[300,300],
+            shape:{
+                r:200
+            },
+            style:{
+                fill:'#00acec'
+            },
+            draggable:true,
+            onmouseover:()=>{
+                myChart.setOption({
+                    graphic: [
+                        {
+                            id:1,
+                            style:{
+                                fill:'blue'
+                            },
+                        }
+                    ]
+                })
+            },
+            onmouseout:()=>{
+                myChart.setOption({
+                    graphic: [
+                        {
+                            id:1,
+                            style:{
+                                fill:'#00acec'
+                            },
+                        }
+                    ]
+                })
+            }
+        }
+    };
+    /*绘图*/
+    myChart.setOption(option);
+
+</script>
+</body>
+</html>

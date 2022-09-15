@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 700px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    /*尺寸*/
+    const symbolSize = 20;
+    /*点位*/
+    const data = [[0,0], [20, 20], [40,40]];
+    /*实例化echarts*/
+    const myChart = echarts.init(document.getElementById('main'));
+
+    /*1.线绘制折线图*/
+    myChart.setOption({
+        /*tooltip 提示
+        *   triggerOn 提示的触发方式
+        *       mousemove 鼠标移动时触发
+        *       click 鼠标点击时触发
+        *       mousemove|click 移动点击皆可触发
+        *       none 不被鼠标移动、点击所触发。可再以后手动触发。
+        *   formatter 格式化提示内容
+        * */
+        tooltip: {
+            triggerOn: 'none',
+            formatter: function (params) {
+                return Math.round(params.data[0]) + ' , ' + Math.round(params.data[1]);
+            }
+        },
+        /*x轴
+        *   min,max 刻度区间
+        *   type 坐标轴的类型
+        *       value 数值轴
+        * */
+        xAxis: {
+            min: 0,
+            max: 50,
+            type: 'value',
+        },
+        /*y 轴
+        *   属性同x
+        * */
+        yAxis: {
+            min: 0,
+            max: 50,
+            type: 'value',
+        },
+        /*系列 series
+        *   id 用于在 option 或者 API 中引用组件
+        *   type 类型
+        *   smooth 圆弧
+        *   symbolSize 标记点尺寸
+        *   data 数据
+        * */
+        series: [
+            {
+                id: 'a',
+                type: 'line',
+                smooth: true,
+                symbolSize: symbolSize,
+                data: data,
+                /*itemStyle:{
+                    opacity:0
+                }*/
+            }
+        ],
+    });
+    /*2.为标记点添加拖拽功能*/
+    /*graphic 原生图形组件
+    *   type 图形类型，image, text, circle, sector, ring...
+    *   position 位置
+    *   shape 相关于图形的属性，不同类型的图形，其中的属性不同
+    *   onclick 点击事件
+    *   onmousemove 鼠标移动
+    * */
+    /*myChart.convertToPixel 将直角坐标系上的点转换为像素*/
+    /*echarts.util.curry(函数,参数) 函数的柯里化，来自zrender
+    * 函数中，this 便是event.target
+    * */
+    const graphic=data.map((ele,ind)=>{
+        return {
+            type: 'circle',
+            position: myChart.convertToPixel('grid', ele),
+            shape: {
+                r: symbolSize / 2
+            },
+            invisible: true,
+            draggable: true,
+            ondrag: echarts.util.curry(onPointDragging, ind),
+            onmousemove: echarts.util.curry(showTooltip, ind),
+            onmouseout: echarts.util.curry(hideTooltip, ind),
+            z: 100
+        };
+    });
+    myChart.setOption({graphic});
+
+    /*鼠标拖拽时，让折线中的点位随拖拽点变化
+    *   convertFromPixel(grid,pos)将拖拽点的像素位解析为直角坐标系的位置
+    *   setOption() 更新数据
+    * */
+    function onPointDragging(dataIndex) {
+        data[dataIndex] = myChart.convertFromPixel('grid', this.position);
+        myChart.setOption({
+            series: [{
+                id: 'a',
+                data: data
+            }]
+        });
+    }
+    /*鼠标在标记点上移动时，触发显示提示事件
+    *   type 事件类型，如showTip
+    *   seriesIndex 系列在系列集合中的索引位置
+    *   dataIndex 标记点在系列中的索引位置
+    * */
+    function showTooltip(dataIndex) {
+        myChart.dispatchAction({
+            type: 'showTip',
+            seriesIndex: 0,
+            dataIndex: dataIndex
+        });
+    }
+
+    /*鼠标在标记点上移动时，触发隐藏提示事件*/
+    function hideTooltip(dataIndex) {
+        myChart.dispatchAction({
+            type: 'hideTip'
+        });
+    }
+</script>
+</body>
+</html>
